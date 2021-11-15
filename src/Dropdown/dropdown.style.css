@@ -1,0 +1,30 @@
+.dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border-style: none;
+
+  width: 100px;
+  height: 60px;
+  color: hsla(0, 0%, 100%, .8);
+  font: 16px/1 Helvetica;
+}
+
+.dropdown:hover {
+  color: #fff;
+}
+
+.dropdown-arrow {
+  margin-left: 8px;
+  fill: currentColor;
+}
+
+.dropdown_items {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  
+  top: 60px;
+  width: 100px;
+}

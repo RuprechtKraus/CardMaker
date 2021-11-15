@@ -1,0 +1,26 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background: #1e1f22;
+  box-sizing: border-box;
+  padding-top: 5px;
+
+  width: 72px;
+  height: 100%;
+}
+
+.sidebar_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  height: 50px;
+}
+
+.sidebar_btn_icon {
+  filter: invert(0.7);
+}
+
+.sidebar_btn:hover .sidebar_btn_icon {
+  filter: invert(1);
+}
