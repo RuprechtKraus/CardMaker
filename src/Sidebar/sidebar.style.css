@@ -1,5 +1,9 @@
 .sidebar {
   display: flex;
+}
+
+.sidebar_menu {
+  display: flex;
   flex-direction: column;
   background: #1e1f22;
   box-sizing: border-box;
@@ -23,4 +27,56 @@
 
 .sidebar_btn:hover .sidebar_btn_icon {
   filter: invert(1);
+}
+
+.sidebar_content {
+  background-color: #2B2C2F;
+  /* background-color: lightgray; */
+
+  height: 100%;
+  width: 300px;
+}
+
+.sidebar_expander {
+  background-color: #2B2C2F;
+  position: absolute;
+  top: 50%;
+
+  height: 80px;
+  width: 14px;
+  border-radius: 0 15px 15px 0;
+}
+
+.sidebar_arrow {
+  fill: #9da2ad;
+  position: absolute;
+
+  top: 45%;
+  left: 2px;
+}
+
+.openArrow {
+  transform: rotate(180deg);
+}
+
+.sidebar_expander_block:hover .sidebar_arrow {
+  fill: #5A5F69;
+}
+
+.sidebar_content_stickers {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  
+  padding: 15px 5px 15px 5px;
+}
+
+.sticker_wrapper, .stickerList-filler {
+  border-radius: 3px;
+  padding: 4px;
+  margin-bottom: 10px;
+}
+
+.sticker_wrapper:hover {
+  background-color: #333437;
 }

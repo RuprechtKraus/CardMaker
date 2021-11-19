@@ -2,7 +2,9 @@ enum Figures {
   Star,
   Cloud,
   Heart,
-  Bat
+  Bat,
+  Goat,
+  Cookie
 }
 
 export default Figures;

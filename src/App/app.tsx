@@ -16,7 +16,7 @@ type AppProps = {
   card: Card;
 }
 
-function CardObjectToImageElement(object: CardObject): ReactElement {
+function cardObjectToImageElement(object: CardObject): ReactElement {
   const data: string = "data:image/jpeg;base64," + (object as Image).data;
   const imgStyle = {
     marginLeft: object.position.x,
@@ -27,7 +27,7 @@ function CardObjectToImageElement(object: CardObject): ReactElement {
   return <img className="card-object" src={ data } alt="" style={ imgStyle }></img>;
 }
 
-function CardObjectToTextElement(object: CardObject): ReactElement {
+function cardObjectToTextElement(object: CardObject): ReactElement {
   const textObj: MyText = (object as MyText);
   const textStyle = {
     marginLeft: textObj.position.x,
@@ -42,33 +42,37 @@ function CardObjectToTextElement(object: CardObject): ReactElement {
   return <span className="card-object" style={ textStyle }>{ textObj.text }</span>;
 }
 
-function CardObjectToArtObjectElement(object: CardObject): ReactElement | null {
+function cardObjectToArtObjectElement(object: CardObject): ReactElement | null {
   const sticker = object as ArtObject;
   switch (sticker.figure) {
     case Figures.Bat:
       return <Stickers.Bat class="card-object" position={ sticker.position } size={ sticker.size }></Stickers.Bat>;
     case Figures.Star:
       return <Stickers.Star class="card-object" position={ sticker.position } size={ sticker.size }></Stickers.Star>;
+    case Figures.Goat:
+      return <Stickers.Goat class="card-object" position={ sticker.position } size={ sticker.size }></Stickers.Goat>;
+    case Figures.Cookie:
+      return <Stickers.Cookie class="card-object" position={ sticker.position } size={ sticker.size }></Stickers.Cookie>;
     default:
       return null;
   }
 }
 
-function CardObjectsToReactElements(objects: CardObject[]): ReactElement[] {
+function cardObjectsToReactElements(objects: CardObject[]): ReactElement[] {
   let collection: ReactElement[] = [];
   objects.forEach(obj => {
     switch (obj.type) {
       case Types.ArtObject:
-        const sticker = CardObjectToArtObjectElement(obj);
+        const sticker = cardObjectToArtObjectElement(obj);
         if (sticker)
           collection.push(sticker);
         break;
       case Types.Image:
-        const image = CardObjectToImageElement(obj);
+        const image = cardObjectToImageElement(obj);
         collection.push(image);
         break;
       case Types.Text:
-        const text = CardObjectToTextElement(obj);
+        const text = cardObjectToTextElement(obj);
         collection.push(text);
         break;
     }
@@ -77,6 +81,12 @@ function CardObjectsToReactElements(objects: CardObject[]): ReactElement[] {
 }
 
 function App(props: AppProps) {
+  useEffect(() => {
+    document.title = "CardMaker"
+  }, []);
+
+  console.log(props.card.objects);
+
   let card: Card = props.card;
   let cardStyle = {
     width: card.size.width,
@@ -85,12 +95,7 @@ function App(props: AppProps) {
     // backgroundImage: "",
     backgroundSize: "cover"
   }
-  
-  useEffect(() => {
-    document.title = "CardMaker"
-  }, []);
-
-  let objects: ReactElement[] = CardObjectsToReactElements(card.objects);
+  let objects: ReactElement[] = cardObjectsToReactElements(card.objects);
   
   return (
     <div className="app">
