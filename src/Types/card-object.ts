@@ -3,9 +3,9 @@ import Size from './size'
 import Types from '../Types/object-types'
 
 type CardObject = {
-  type: Types,
-  position: Point,
-  size: Size
+  readonly type: Types,
+  readonly position: Point,
+  readonly size: Size
 }
 
 export default CardObject;

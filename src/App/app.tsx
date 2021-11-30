@@ -85,8 +85,6 @@ function App(props: AppProps) {
     document.title = "CardMaker"
   }, []);
 
-  console.log(props.card.objects);
-
   let card: Card = props.card;
   let cardStyle = {
     width: card.size.width,

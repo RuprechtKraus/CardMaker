@@ -22,6 +22,7 @@ export function InsertSticker(card: Card, sticker: ArtObject): Card {
 function addSticker(stickerType: Figures) {
   const card: Card = getCard();
   const sticker: ArtObject = {
+    id: 1,
     type: Types.ArtObject,
     figure: stickerType,
     position: {

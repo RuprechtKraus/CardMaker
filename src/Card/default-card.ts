@@ -14,6 +14,7 @@ const defaultCardSize: Size = {
 }
 
 let bat: ArtObject = {
+  id: 1,
   type: Types.ArtObject,
   figure: Figures.Bat,
   position: {
@@ -27,6 +28,7 @@ let bat: ArtObject = {
 }
 
 let star: ArtObject = {
+  id: 2,
   type: Types.ArtObject,
   figure: Figures.Star,
   position: {
