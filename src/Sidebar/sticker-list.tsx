@@ -1,11 +1,13 @@
-import ArtObjectProps from '../ArtObjects/art-objects-props';
-import * as Stickers from '../ArtObjects/art-objects';
-import { dispatch, getCard } from '../Card/card';
-import CardObject from '../Types/card-object';
-import Card from '../Types/card';
-import ArtObject from '../Types/art-object';
-import Figures from '../ArtObjects/figures';
+import { dispatch, getCard, getNextObjectId, incrementNextObjectId } from '../Card/card';
+import CardObject from '../Types/type-card-object';
+import Card from '../Types/type-card';
+import ArtObject from '../Types/type-art-object';
+import Figures from '../CardElements/ArtObject/figures';
 import Types from '../Types/object-types';
+import BatIcon from './StickerListIcons/bat.png'
+import StarIcon from './StickerListIcons/star.png'
+import CookieIcon from './StickerListIcons/cookie.png'
+import GoatIcon from './StickerListIcons/goat.png'
 
 export function InsertSticker(card: Card, sticker: ArtObject): Card {
   let newObjects: CardObject[] = card.objects;
@@ -21,8 +23,10 @@ export function InsertSticker(card: Card, sticker: ArtObject): Card {
 
 function addSticker(stickerType: Figures) {
   const card: Card = getCard();
+  const id = getNextObjectId();
+  incrementNextObjectId();
   const sticker: ArtObject = {
-    id: 1,
+    id: id,
     type: Types.ArtObject,
     figure: stickerType,
     position: {
@@ -37,26 +41,26 @@ function addSticker(stickerType: Figures) {
   dispatch(InsertSticker, sticker);
 }
 
-function StickerList(props: ArtObjectProps) {
+function StickerList() {
   const stickersPerRow: number = 3;
   const stickerList = [
     <div className="sticker_wrapper" onClick={ () => addSticker(Figures.Bat) }>
-      <Stickers.Bat { ...props }></Stickers.Bat>
+      <img alt="" src={ BatIcon } className="sticker"></img>
     </div>, 
     <div className="sticker_wrapper" onClick={ () => addSticker(Figures.Star) }>
-      <Stickers.Star { ...props }></Stickers.Star>
+      <img alt="" src={ StarIcon } className="sticker"></img>
     </div>,
     <div className="sticker_wrapper" onClick={ () => addSticker(Figures.Cookie) }>
-      <Stickers.Cookie { ...props }></Stickers.Cookie>
+      <img alt="" src={ CookieIcon } className="sticker"></img>
     </div>,
     <div className="sticker_wrapper" onClick={ () => addSticker(Figures.Goat) }>
-      <Stickers.Goat { ...props }></Stickers.Goat>
+      <img alt="" src={ GoatIcon } className="sticker"></img>
     </div>
   ];
   const numberOfBlanks = stickerList.length / stickersPerRow;
 
   for (let i = 0; i < numberOfBlanks; i++) {
-    stickerList.push(<div className="stickerList-filler" style={ {width: props.size.width} }></div>);
+    stickerList.push(<div className="stickerList-filler"></div>);
   }
 
   return (

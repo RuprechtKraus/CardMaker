@@ -1,6 +1,6 @@
-import CardObject from './card-object';
+import CardObject from './type-card-object';
 
-type MyText = {
+type Text = {
   readonly text: string;
   readonly fontFamily: string;
   readonly fontSize: number;
@@ -14,5 +14,5 @@ enum Typestyles {
   Italic = "italic"
 }
 
-export default MyText;
+export default Text;
 export { Typestyles };

@@ -1,96 +1,90 @@
-import ArtObjectProps from "./art-objects-props";
+import StickerProps from './sticker-props';
+import { fetchStickerStyle } from  './sticker-utils';
 import { createRef, useEffect, useState } from "react";
-import Point from "../Types/point";
-import ArtObject from "../Types/art-object";
-import Card from "../Types/card";
-import CardObject from "../Types/card-object";
-import Figures from "./figures";
-import Types from "../Types/object-types";
-import { dispatch } from '../Card/card';
+import Point from "../../../Types/type-point";
+import ArtObject from "../../../Types/type-art-object";
+import Card from "../../../Types/type-card";
+import CardObject from "../../../Types/type-card-object";
+import Figures from "../figures";
+import Types from "../../../Types/object-types";
+import { dispatch } from '../../../Card/card';
 
-function SetArtObjectPosition(card: Card, {artObject, newPos}: { artObject: ArtObject, newPos: Point }): Card {
-  const index = card.objects.findIndex((element, index, array) => { return (element as ArtObject).id === artObject.id; });
-  if (index > -1) {
-    let newArtObject: ArtObject = {
-      id: artObject.id,
-      type: artObject.type,
-      figure: artObject.figure,
-      size: artObject.size,
-      position: newPos
-    }
-    let newObjects: CardObject[] = card.objects;
-    newObjects[index] = newArtObject;
-    let newCard: Card = {
-      background: card.background,
-      size: card.size,
-      objects: newObjects,
-      filter: card.filter,
-    }
-    return newCard;
-  }
-  else {
-    return card;
-  }
-}
+// function SetArtObjectPosition(card: Card, {artObject, newPos}: { artObject: ArtObject, newPos: Point }): Card {
+//   const index = card.objects.findIndex((element, index, array) => { return (element as ArtObject).id === artObject.id; });
+//   if (index > -1) {
+//     let newArtObject: ArtObject = {
+//       type: artObject.type,
+//       figure: artObject.figure,
+//       size: artObject.size,
+//       position: newPos
+//     }
+//     let newObjects: CardObject[] = card.objects;
+//     newObjects[index] = newArtObject;
+//     let newCard: Card = {
+//       background: card.background,
+//       size: card.size,
+//       objects: newObjects,
+//       filter: card.filter,
+//     }
+//     return newCard;
+//   }
+//   else {
+//     return card;
+//   }
+// }
 
-function Bat(props: ArtObjectProps) {
-  const ref = createRef<SVGSVGElement>();
-  const [pos, setPos] = useState(props.position);
+function Bat(props: StickerProps) {
+  // const ref = createRef<SVGSVGElement>();
+  // const [pos, setPos] = useState(props.position);
 
-  let startPos: Point;
+  // let startPos: Point;
   
-  const onMouseUp = () => {
-    document.removeEventListener("mousemove", onMouseMove);
-    document.removeEventListener("mouseup", onMouseUp);
-  }
+  // const onMouseUp = () => {
+  //   document.removeEventListener("mousemove", onMouseMove);
+  //   document.removeEventListener("mouseup", onMouseUp);
+  // }
 
-  const onMouseDown = (e: any) => {
-    if (ref.current && ref.current.contains(e.target)) {
-      startPos = {
-        x: e.pageX,
-        y: e.pageY
-      }
-      document.addEventListener("mousemove", onMouseMove);
-      document.addEventListener("mouseup", onMouseUp);
-    }
-  }
+  // const onMouseDown = (e: any) => {
+  //   if (ref.current && ref.current.contains(e.target)) {
+  //     startPos = {
+  //       x: e.pageX,
+  //       y: e.pageY
+  //     }
+  //     document.addEventListener("mousemove", onMouseMove);
+  //     document.addEventListener("mouseup", onMouseUp);
+  //   }
+  // }
   
-  const onMouseMove = (e: any) => {
-    const delta = {
-      x: e.pageX - startPos.x,
-      y: e.pageY - startPos.y
-    };
-    const newPos = {
-      x: pos.x + delta.x,
-      y: pos.y + delta.y
-    }
-    setPos(newPos);
+  // const onMouseMove = (e: any) => {
+  //   const delta = {
+  //     x: e.pageX - startPos.x,
+  //     y: e.pageY - startPos.y
+  //   };
+  //   const newPos = {
+  //     x: pos.x + delta.x,
+  //     y: pos.y + delta.y
+  //   }
+  //   setPos(newPos);
 
-    const artObject: ArtObject = {
-      id: 1,
-      figure: Figures.Bat, 
-      size: props.size, 
-      type: Types.ArtObject, 
-      position: props.position
-    }
-    dispatch(SetArtObjectPosition, { artObject, newPos });
-  }
+  //   const artObject: ArtObject = {
+  //     id: 1,
+  //     figure: Figures.Bat, 
+  //     size: props.size, 
+  //     type: Types.ArtObject, 
+  //     position: props.position
+  //   }
+  //   dispatch(SetArtObjectPosition, { artObject, newPos });
+  // }
 
-  useEffect(() => {
-    document.addEventListener("mousedown", onMouseDown);
-    return () => {
-      document.removeEventListener("mousedown", onMouseDown);
-    }
-  });
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", onMouseDown);
+  //   return () => {
+  //     document.removeEventListener("mousedown", onMouseDown);
+  //   }
+  // });
 
-
-  const style = {
-    marginLeft: props.position.x,
-    marginTop: props.position.y,
-    height: props.size.height,
-    width: props.size.width
-  }
-  return (<svg ref={ref} version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" className={ props.class } style={ style }
+  const style = fetchStickerStyle(props);
+  return (<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" className={ props.class } style={ style }
   viewBox="0 0 511.988 511.988" enableBackground="new 0 0 511.988 511.988" xmlSpace="preserve">
   <path fill="#967ADC" d="M498.977,398.662l-85.326-106.669c-3.281-4.094-9.062-5.203-13.625-2.594L255.983,371.71
   l-144.028-82.311c-4.562-2.609-10.343-1.5-13.625,2.594L13.004,398.662c-2.734,3.406-3.094,8.141-0.938,11.922

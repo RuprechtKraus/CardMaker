@@ -1,12 +1,8 @@
-import ArtObjectProps from "./art-objects-props"
+import StickerProps from './sticker-props';
+import { fetchStickerStyle } from  './sticker-utils';
 
-function Star(props: ArtObjectProps) {
-  const style = {
-    marginLeft: props.position.x,
-    marginTop: props.position.y,
-    height: props.size.height,
-    width: props.size.width
-  }
+function Star(props: StickerProps) {
+  const style = fetchStickerStyle(props);
   return (<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 501.986 501.986" enableBackground="new 0 0 501.986 501.986" xmlSpace="preserve" className={ props.class }style={ style }>
   <g>
     <g>

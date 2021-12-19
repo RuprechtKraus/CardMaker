@@ -1,12 +1,8 @@
-import ArtObjectProps from "./art-objects-props";
+import StickerProps from './sticker-props';
+import { fetchStickerStyle } from  './sticker-utils';
 
-function Cookie(props: ArtObjectProps) {
-  const style = {
-    marginLeft: props.position.x,
-    marginTop: props.position.y,
-    height: props.size.height,
-    width: props.size.width
-  }
+function Cookie(props: StickerProps) {
+  const style = fetchStickerStyle(props);
   return (<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" className={ props.class } style={ style } viewBox="0 0 512 512" enableBackground="new 0 0 512 512" xmlSpace="preserve">
 <circle fill="#F6A230" cx="256" cy="256" r="248.396"/>
 <g>

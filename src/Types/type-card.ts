@@ -1,7 +1,7 @@
-import Image from './image'
-import Size from './size'
-import Filter from './filter'
-import CardObject from './card-object'
+import Image from './type-image'
+import Size from './type-size'
+import Filter from './type-filter'
+import CardObject from './type-card-object'
 
 type Card = {
   readonly background: Image;

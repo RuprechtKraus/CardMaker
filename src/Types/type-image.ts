@@ -1,4 +1,4 @@
-import CardObject from './card-object';
+import CardObject from './type-card-object';
 
 type Image = {
   readonly data: string;

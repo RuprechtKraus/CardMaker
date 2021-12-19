@@ -1,11 +1,11 @@
-import Size from '../Types/size'
-import Card from '../Types/card'
+import Size from '../Types/type-size'
+import Card from '../Types/type-card'
 import Types from '../Types/object-types'
-import ArtObject from '../Types/art-object'
-import Figures from '../ArtObjects/figures'
-import Image from '../Types/image'
-import MyText, { Typestyles } from '../Types/my-text'
-import Filters from '../Types/filter'
+import ArtObject from '../Types/type-art-object'
+import Figures from '../CardElements/ArtObject/figures'
+import Image from '../Types/type-image'
+import MyText, { Typestyles } from '../Types/type-text'
+import Filters from '../Types/type-filter'
 import goat64 from './goat64'
 
 const defaultCardSize: Size = {
@@ -42,6 +42,7 @@ let star: ArtObject = {
 }
 
 let goat: Image = {
+  id: 3,
   type: Types.Image,
   data: goat64,
   position: {
@@ -55,6 +56,7 @@ let goat: Image = {
 }
 
 let greeting: MyText = {
+  id: 4,
   type: Types.Text,
   text: "Hello world!",
   color: "crimson",
@@ -73,6 +75,7 @@ let greeting: MyText = {
 }
 
 let message: MyText = {
+  id: 5,
   type: Types.Text,
   text: "Have a great day!",
   color: "yellow",
@@ -92,6 +95,7 @@ let message: MyText = {
 
 const defaultCard: Card = {
   background: {
+    id: 0,
     type: Types.Image,
     data: "",
     size: defaultCardSize,

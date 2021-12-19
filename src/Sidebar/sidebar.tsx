@@ -6,7 +6,6 @@ import ImageIcon from '@mui/icons-material/Image';
 import HighlightAltIcon from '@mui/icons-material/HighlightAlt';
 import StarsIcon from '@mui/icons-material/Stars';
 import StickerList from './sticker-list';
-import ArtObjectProps from '../ArtObjects/art-objects-props';
 import { useState } from 'react';
 
 enum Panels {
@@ -21,17 +20,6 @@ enum Panels {
 function Sidebar() {
   const [open, setOpen] = useState(false);
   const [panel, setPanel] = useState<Panels>(Panels.Select);
-  const stickerProps: ArtObjectProps = {
-    class: "sticker",
-    position: {
-      x: 0,
-      y: 0
-    },
-    size: {
-      height: 80,
-      width: 80
-    }
-  }
 
   function showPanel(panelType: Panels) {
     setOpen(true);
@@ -60,7 +48,6 @@ function Sidebar() {
   function hideShowPanel() {
     setOpen(!open);
   }
-
 
   return (
     <div className="sidebar">
@@ -92,7 +79,7 @@ function Sidebar() {
         { panel === Panels.Text && <div className="sidebar_content_images">Изображения</div> }
         { panel === Panels.Images && <div className="sidebar_content_text">Текст</div> }
         { panel === Panels.Stickers && <div className="sidebar_content_stickers">
-          <StickerList { ...stickerProps }></StickerList>
+          <StickerList></StickerList>
         </div> }
       </div> }
 
