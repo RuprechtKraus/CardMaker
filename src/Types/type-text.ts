@@ -1,4 +1,5 @@
-import CardObject from './type-card-object';
+import Types from './object-types';
+import CardObject from './type-card-object-base';
 
 type Text = {
   readonly text: string;
@@ -7,6 +8,7 @@ type Text = {
   readonly fontStyle: Typestyles;
   readonly fontWeight: number;
   readonly color: string;
+  readonly type: Types.Text;
 } & CardObject
 
 enum Typestyles {

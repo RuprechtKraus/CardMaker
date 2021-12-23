@@ -1,4 +1,4 @@
-.app_header {
+.header {
   display: flex;
   box-sizing: border-box;
   align-items: center;
@@ -10,12 +10,12 @@
   padding: 5px 5px;
 }
 
-.app_logo {
+.logo {
   height: 50px;
   margin-right: 20px;
 }
 
-.undo-arrow {
+.undo_arrow {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +25,7 @@
   margin-left: 20px;
 }
 
-.redo-arrow {
+.redo_arrow {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,10 +35,10 @@
   margin-left: 16px;
 }
 
-.undo-arrow, .redo-arrow {
+.undo_arrow, .redo_arrow {
   fill: hsla(0, 0%, 100%, .8);
 }
 
-.undo-arrow:hover, .redo-arrow:hover {
+.undo_arrow:hover, .redo_arrow:hover {
   fill: #fff;
 }

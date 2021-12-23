@@ -1,0 +1,47 @@
+.card_object {
+  position: absolute;
+}
+
+.no_blue_selection {
+  user-select: none;
+}
+
+.selected {
+  border-width: 1px;
+  border-style: dashed;
+  border-color: rgb(200, 200, 200);
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+}
+
+.selected .dot {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background-color: rgb(200, 200, 200);
+  border-radius: 50%;
+  border: 2px solid rgb(120, 120, 120)
+}
+
+.dot_top_left {
+  top: -8px;
+  left: -8px;
+}
+
+.dot_top_right {
+  top: -8px;
+  right: -8px;
+}
+
+.dot_bottom_left {
+  bottom: -8px;
+  left: -8px;
+}
+
+.dot_bottom_right {
+  bottom: -8px;
+  right: -8px;
+}

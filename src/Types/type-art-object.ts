@@ -1,8 +1,10 @@
-import CardObject from './type-card-object';
-import Figures from '../CardElements/ArtObject/figures';
+import CardObject from './type-card-object-base';
+import Figures from '../Components/CardElements/ArtObject/figures';
+import Types from './object-types';
 
 type ArtObject = {
-  readonly figure: Figures
+  readonly figure: Figures,
+  readonly type: Types.ArtObject,
 } & CardObject
 
 export default ArtObject;

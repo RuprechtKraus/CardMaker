@@ -15,12 +15,12 @@
   color: #fff;
 }
 
-.dropdown-arrow {
+.arrow {
   margin-left: 8px;
   fill: currentColor;
 }
 
-.dropdown_items {
+.items {
   position: absolute;
   display: flex;
   flex-direction: column;

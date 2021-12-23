@@ -1,24 +1,23 @@
 import { ReactElement, useEffect } from 'react';
-import Header from '../Header/header';
-import Sidebar from '../Sidebar/sidebar';
+import Header from '../Components/Header/header';
+import Sidebar from '../Components/Sidebar/sidebar';
 import Card from '../Types/type-card';
 import { bg64 } from './bg';
-import { parseObjects } from './utils/object-casting';
-import './app.style.css';
-import { getNextObjectId, incrementNextObjectId } from '../Card/card';
+import { createReactElements } from '../utils/object-casting';
+import styles from './app.module.css';
 
 type AppProps = {
   card: Card;
 }
 
-function App(props: AppProps) {
+function App(props: AppProps): JSX.Element {
   useEffect(() => {
     document.title = "CardMaker"
   }, []);
 
-  let card: Card = props.card;
-  let objects: ReactElement[] = parseObjects(card.objects);
-  let cardStyle = {
+  const card: Card = props.card;
+  const objects: ReactElement[] = createReactElements(card.objects);
+  const cardStyle = {
     width: card.size.width,
     height: card.size.height,
     backgroundImage: "url(data:image/jpeg;base64," + bg64 + ")",
@@ -27,18 +26,17 @@ function App(props: AppProps) {
   }
   
   return (
-    <div className="app">
+    <div className={ styles.app }>
       <Header></Header>
-      <div className="container">
+      <div className={ styles.container }>
         <Sidebar></Sidebar>
-        <div className="work-area">
-          <div className="card" style={cardStyle}>
+        <div className={ styles.work_area }>
+          <div className={ styles.card } style={ cardStyle }>
             { objects }
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>)
 }
 
 export default App;

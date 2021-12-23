@@ -1,12 +1,7 @@
-import Point from './type-point'
-import Size from './type-size'
-import Types from './object-types'
+import ArtObject from "./type-art-object";
+import Image from "./type-image";
+import Text  from "./type-text";
 
-type CardObject = {
-  readonly id: number,
-  readonly type: Types,
-  readonly position: Point,
-  readonly size: Size
-}
+type CardObject = ArtObject | Image | Text;
 
 export default CardObject;

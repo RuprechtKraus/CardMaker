@@ -1,9 +1,5 @@
-import StickerProps from './sticker-props';
-import { fetchStickerStyle } from  './sticker-utils';
-
-function Cookie(props: StickerProps) {
-  const style = fetchStickerStyle(props);
-  return (<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" className={ props.class } style={ style } viewBox="0 0 512 512" enableBackground="new 0 0 512 512" xmlSpace="preserve">
+function Cookie() {
+  return (<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" enableBackground="new 0 0 512 512" xmlSpace="preserve">
 <circle fill="#F6A230" cx="256" cy="256" r="248.396"/>
 <g>
  <path fill="#53180F" d="M256,512c-68.38,0-132.668-26.629-181.019-74.981C26.629,388.667,0,324.38,0,256
