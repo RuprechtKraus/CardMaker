@@ -4,8 +4,10 @@ import CardObject from "../Types/type-card-object";
 import Card from "../Types/type-card";
 import Image from "../Types/type-image";
 import Text from "../Types/type-text";
+import Size from "../Types/type-size";
+import Types from "../Types/object-types";
 
-function setArtObjectPosition(card: Card, {id, newPos}: { id: number, newPos: Point }): Card {
+function setArtObjectPosition(card: Card, { id, newPos }: { id: number, newPos: Point }): Card {
   const index: number = card.objects.findIndex((element) => { return element.id === id; });
   if (index > -1) {
     const object: ArtObject = card.objects[index] as ArtObject;
@@ -34,7 +36,7 @@ function setArtObjectPosition(card: Card, {id, newPos}: { id: number, newPos: Po
   }
 }
 
-function setImagePosition(card: Card, {id, newPos}: { id: number, newPos: Point }): Card {
+function setImagePosition(card: Card, { id, newPos }: { id: number, newPos: Point }): Card {
   const index: number = card.objects.findIndex((element) => { return element.id === id; });
   if (index > -1) {
     const image: Image = card.objects[index] as Image;
@@ -63,7 +65,75 @@ function setImagePosition(card: Card, {id, newPos}: { id: number, newPos: Point 
   }
 }
 
-function setTextPosition(card: Card, {id, newPos}: { id: number, newPos: Point }): Card {
+function setImageSize(card: Card, image: Image, index: number, id: number, newSize: Size): Card {
+  const newImage: Image = {
+    id: image.id,
+    type: Types.Image,
+    data: image.data,
+    size: newSize,
+    position: image.position
+  }
+
+  let newObjects: CardObject[] = card.objects;
+  newObjects[index] = newImage;
+  
+  const newCard: Card = {
+    background: card.background,
+    size: card.size,
+    objects: newObjects,
+    filter: card.filter
+  }
+
+  return newCard;
+}
+
+function setArtObjectSize(card: Card, artObject: ArtObject, index: number, id: number, newSize: Size): Card {
+  const newArtObject: ArtObject = {
+    id: artObject.id,
+    type: Types.ArtObject,
+    figure: artObject.figure,
+    size: newSize,
+    position: artObject.position
+  }
+
+  let newObjects: CardObject[] = card.objects;
+  newObjects[index] = newArtObject;
+  
+  const newCard: Card = {
+    background: card.background,
+    size: card.size,
+    objects: newObjects,
+    filter: card.filter
+  }
+
+  return newCard;
+}
+
+function setObjectSize(card: Card, { id, newSize }: { id: number, newSize: Size }): Card {
+  const index: number = card.objects.findIndex((element) => { return element.id === id; });
+  if (index > -1) {
+    const object: CardObject = card.objects[index];
+    let newCard: Card;
+    switch(object.type) {
+      case Types.Image:
+        newCard = setImageSize(card, object, index, id, newSize);
+        break;
+      case Types.ArtObject:
+        newCard = setArtObjectSize(card, object, index, id, newSize);
+        break;
+      default:
+        newCard = card;
+        break;
+    }
+    
+    return newCard;
+  }
+  else {
+    return card;
+  }
+}
+
+function setTextPosition(card: Card, { id, newPos }: { id: number, newPos: Point }): Card {
   const index: number = card.objects.findIndex((element) => { return element.id === id; });
   if (index > -1) {
     const text: Text = card.objects[index] as Text;
@@ -109,4 +179,4 @@ function addObject(card: Card, object: CardObject): Card {
   return newCard;
 }
 
-export { setArtObjectPosition, setImagePosition, setTextPosition, addObject }
+export { setArtObjectPosition, setImagePosition, setTextPosition, addObject, setObjectSize }

@@ -1,11 +1,6 @@
-import { createRef, useEffect, useState } from "react";
-import Figures from "../figures";
-import Types from "../../../../Types/object-types";
-import { dispatch } from '../../../../Card/card';
-
 function Bat() {
   return (<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-  viewBox="0 0 511.988 511.988" enableBackground="new 0 0 511.988 511.988" xmlSpace="preserve">
+  viewBox="0 0 511.988 511.988" preserveAspectRatio="none" height="100%" width="100%" enableBackground="new 0 0 511.988 511.988" xmlSpace="preserve">
   <path fill="#967ADC" d="M498.977,398.662l-85.326-106.669c-3.281-4.094-9.062-5.203-13.625-2.594L255.983,371.71
   l-144.028-82.311c-4.562-2.609-10.343-1.5-13.625,2.594L13.004,398.662c-2.734,3.406-3.094,8.141-0.938,11.922
   c2.156,3.813,6.406,5.907,10.719,5.313c0.109-0.031,10-1.359,23.906-1.359c18.875,0,53.639,2.625,74.404,20.249

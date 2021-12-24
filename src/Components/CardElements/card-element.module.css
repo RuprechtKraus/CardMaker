@@ -19,29 +19,13 @@
 
 .selected .dot {
   position: absolute;
+  
   height: 10px;
   width: 10px;
+  bottom: -8px;
+  right: -8px;
+
   background-color: rgb(200, 200, 200);
   border-radius: 50%;
   border: 2px solid rgb(120, 120, 120)
-}
-
-.dot_top_left {
-  top: -8px;
-  left: -8px;
-}
-
-.dot_top_right {
-  top: -8px;
-  right: -8px;
-}
-
-.dot_bottom_left {
-  bottom: -8px;
-  left: -8px;
-}
-
-.dot_bottom_right {
-  bottom: -8px;
-  right: -8px;
 }

@@ -7,6 +7,7 @@ function useSelectElement(ref: RefObject<HTMLElement>, id: number): void {
   }
 
   function onMouseClickHandler(e: MouseEvent): void {
+    console.log(e.target !== ref.current);
     if ((e.target !== ref.current) && getSelectedId() === id) {
       resetSelectedId();
     }

@@ -3,10 +3,11 @@ import * as Stickers from './all-objects';
 import ArtObj from '../../../Types/type-art-object';
 import styles from '../card-element.module.css';
 import useDragAndDrop from '../../../Hooks/DragAndDrop';
-import { setArtObjectPosition } from '../../../App/utils';
+import { setArtObjectPosition, setObjectSize } from '../../../App/utils';
 import React, { useRef } from 'react';
 import CardObject from '../../../Types/type-card-object';
 import useSelectElement from '../../../Hooks/SelectElement';
+import useResize from '../../../Hooks/ResizeElement';
 
 type ArtObjectProps = {
   artObject: ArtObj,
@@ -16,21 +17,22 @@ type ArtObjectProps = {
 function ArtObject(props: ArtObjectProps): JSX.Element {
   const object: CardObject = props.artObject;
   const figure: JSX.Element | null = getFigure(props);
+  const id: number = object.id;
   const style = fetchStyle(object);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
-  const id: number = object.id;
+  const dotRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const selection = props.selectedId === id ? styles.selected : "";
 
   useDragAndDrop(ref, id, object.position, setArtObjectPosition);
+  useResize(ref, dotRef, id, object.size, object.position, setObjectSize, setArtObjectPosition);
   useSelectElement(ref, id);
 
-  return <div ref={ ref } className={ styles.card_object + " " + selection } style={ style }>
-      <div className={ styles.dot + " " + styles.dot_top_left}></div>
-      <div className={ styles.dot + " " + styles.dot_top_right}></div>
+  return ( 
+    <div ref={ ref } className={ styles.card_object + " " + selection } style={ style } >
       { figure }
-      <div className={ styles.dot + " " + styles.dot_bottom_left}></div>
-      <div className={ styles.dot + " " + styles.dot_bottom_right}></div>
-    </div>;
+      <div ref={ dotRef } className={ styles.dot }></div>
+    </div>
+  );
 }
 
 function fetchStyle(artObject: ArtObj) {

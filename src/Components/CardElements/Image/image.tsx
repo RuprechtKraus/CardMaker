@@ -2,9 +2,9 @@ import { useRef } from 'react';
 import useDragAndDrop from '../../../Hooks/DragAndDrop';
 import Img from '../../../Types/type-image';
 import styles from '../card-element.module.css';
-import { setImagePosition } from '../../../App/utils';
+import { setImagePosition, setObjectSize } from '../../../App/utils';
 import useSelectElement from '../../../Hooks/SelectElement'
-import { height } from '@mui/system';
+import useResize from '../../../Hooks/ResizeElement';
 
 type ImageProps = {
   image: Img,
@@ -13,18 +13,21 @@ type ImageProps = {
 
 function Image(props: ImageProps) {
   const image: Img = props.image;
+  const id = image.id;
   const style = fetchStyle(image);
   const data: string = image.data;
-  const ref = useRef<HTMLDivElement>(null);
-  const id = image.id;
+  const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+  const dotRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const selection = props.selectedId === id ? styles.selected : "";
 
   useDragAndDrop(ref, id, image.position, setImagePosition);
+  useResize(ref, dotRef, id, image.size, image.position, setObjectSize, setImagePosition);
   useSelectElement(ref, id);
 
   return (
     <div ref={ ref } className={ styles.card_object + " " + selection } style={ style } onDragStart={ (e) => e.preventDefault() }>
-      <img src={ data } alt="" className={ styles.image } onClick={ (e) => e.stopPropagation() }></img>
+      <img src={ data } alt="" className={ styles.image + " " + styles.no_blue_selection } onClick={ (e) => e.stopPropagation() }></img>
+      <div ref={ dotRef } className={ styles.dot }></div>
     </div>);
 }
 

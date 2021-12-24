@@ -19,6 +19,10 @@ function getNextId(): number {
   return nextId;
 }
 
+function getSelectedId(): number {
+  return selectedId;
+}
+
 function setSelectedId(id: number): void {
   selectedId = id;
   if (editorChangeHandler)
@@ -31,10 +35,6 @@ function resetSelectedId(): void {
     editorChangeHandler();
 }
 
-function getSelectedId(): number {
-  return selectedId;
-}
-
 function incrementNextObjectId(): void {
   nextId++;
 }
@@ -44,12 +44,12 @@ function addEditorChangeHandler(handler: Function): void {
 }
 
 function dispatch(modifyFn: any, payload: any): void {
-  const newCard = modifyFn(card, payload);
+  const newCard = modifyFn(card, payload)
   setCard(newCard);
   if (editorChangeHandler)
     editorChangeHandler();
 }
 
 export { getCard, setCard, getNextId, 
-  setSelectedId, getSelectedId, resetSelectedId, 
+  setSelectedId, getSelectedId, resetSelectedId,
   dispatch, addEditorChangeHandler }
