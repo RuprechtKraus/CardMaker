@@ -12,9 +12,9 @@
   border-color: rgb(200, 200, 200);
 }
 
-.image {
-  height: 100%;
-  width: 100%;
+.selected[contenteditable=true] {
+  outline: none;
+  cursor: text;
 }
 
 .selected .dot {

@@ -9,18 +9,15 @@ function useDragAndDrop(
   positionSetter: (card: Card, {id, newPos}: { id: number, newPos: Point }) => void
 ): void {
   let startPos: Point;
-  let element: HTMLElement | null = ref.current;
   let newPos: Point;
 
   const onMouseDown = (e: MouseEvent): void => {
-    if (element && element.contains(e.target as Node)) {
-      startPos = {
-        x: e.pageX,
-        y: e.pageY
-      }
-      document.addEventListener("mousemove", onMouseMove);
-      document.addEventListener("mouseup", onMouseUp);
+    startPos = {
+      x: e.pageX,
+      y: e.pageY
     }
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
   }
 
   const onMouseMove = (e: MouseEvent): void => {
@@ -33,9 +30,9 @@ function useDragAndDrop(
       y: initialPos.y + delta.y
     }
 
-    if (element) {
-      element.style.marginLeft = String(newPos.x) + "px";
-      element.style.marginTop = String(newPos.y) + "px";
+    if (ref.current) {
+      ref.current.style.marginLeft = String(newPos.x) + "px";
+      ref.current.style.marginTop = String(newPos.y) + "px";
     }
   }
 
@@ -47,9 +44,10 @@ function useDragAndDrop(
   }
 
   useEffect(() => {
-    document.addEventListener("mousedown", onMouseDown);
+    const element = ref;
+    element.current?.addEventListener("mousedown", onMouseDown);
     return () => {
-      document.removeEventListener("mousedown", onMouseDown);
+      element.current?.removeEventListener("mousedown", onMouseDown);
     }
   });
 }

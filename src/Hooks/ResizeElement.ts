@@ -5,26 +5,21 @@ import Point from "../Types/type-point";
 import Size from "../Types/type-size";
 
 function useResize(
-  ref: RefObject<HTMLElement>, dot: RefObject<HTMLElement>,
-  id: number, initialSize: Size, initialPos: Point,
-  sizeSetter: (card: Card, { id, newSize }: { id: number, newSize: Size }) => void,
-  positionSetter: (card: Card, {id, newPos}: { id: number, newPos: Point }) => void
+  ref: RefObject<HTMLElement>, dotRef: RefObject<HTMLElement>,
+  id: number, initialSize: Size,
+  sizeSetter: (card: Card, { id, newSize }: { id: number, newSize: Size }) => void
 ): void {
   let startPos: Point;
   let newSize: Size;
-  const newPos: Point = initialPos;
-  const dotElement: HTMLElement | null = dot.current;
-  const element: HTMLElement | null = ref.current;
 
   const onMouseDown = (e: MouseEvent): void => {
-    if (dotElement && dotElement.contains(e.target as Node)) {
-      startPos = {
-        x: e.pageX,
-        y: e.pageY
-      }
-      document.addEventListener("mousemove", onMouseMove);
-      document.addEventListener("mouseup", onMouseUp);
+    e.stopImmediatePropagation();
+    startPos = {
+      x: e.pageX,
+      y: e.pageY
     }
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
   }
 
   const onMouseMove = (e: MouseEvent): void => {
@@ -47,27 +42,24 @@ function useResize(
       }
     }
     
-    if (element) {
-      element.style.marginLeft = String(initialPos.x) + "px";
-      element.style.marginTop = String(initialPos.y) + "px";
-      
-      element.style.height = String(newSize.height) + "px";
-      element.style.width = String(newSize.width) + "px";
+    if (ref.current) {      
+      ref.current.style.height = String(newSize.height) + "px";
+      ref.current.style.width = String(newSize.width) + "px";
     }
   }
 
   const onMouseUp = (): void => {
     if (newSize)
       dispatch(sizeSetter, { id, newSize });
-    dispatch(positionSetter, { id, newPos });
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);
   }
 
   useEffect(() => {
-    document.addEventListener("mousedown", onMouseDown);
+    const dot = dotRef;
+    dot.current?.addEventListener("mousedown", onMouseDown);
     return () => {
-      document.removeEventListener("mousedown", onMouseDown);
+      dot.current?.removeEventListener("mousedown", onMouseDown);
     }
   });
 }

@@ -65,31 +65,31 @@ let greeting: MyText = {
   fontStyle: Typestyles.Italic,
   fontWeight: 900,
   position: {
-    x: 350,
-    y: 100
+    x: 300,
+    y: 150
   },
   size: {
     height: 0,
-    width: 200
+    width: 0
   }
 }
 
 let message: MyText = {
   id: 5,
   type: Types.Text,
-  text: "Have a great day!",
+  text: "Have a<br>great day!",
   color: "yellow",
   fontSize: 60,
   fontFamily: "cursive",
   fontStyle: Typestyles.Normal,
   fontWeight: 600,
   position: {
-    x: 280,
+    x: 250,
     y: 500
   },
   size: {
     height: 0,
-    width: 300
+    width: 0
   }
 }
 

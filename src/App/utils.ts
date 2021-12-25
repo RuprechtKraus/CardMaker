@@ -167,6 +167,57 @@ function setTextPosition(card: Card, { id, newPos }: { id: number, newPos: Point
   }
 }
 
+function setTextContent(card: Card, { id, newText }: { id: number, newText: string }): Card {
+  const index: number = card.objects.findIndex((element) => { return element.id === id; });
+  if (index > -1) {
+    const text: Text = card.objects[index] as Text;
+    const newTxt: Text = {
+      id: text.id,
+      type: text.type,
+      text: newText,
+      color: text.color,
+      fontFamily: text.fontFamily,
+      fontStyle: text.fontStyle,
+      fontSize: text.fontSize,
+      fontWeight: text.fontWeight,
+      size: text.size,
+      position: text.position
+    }
+
+    let newObjects: CardObject[] = card.objects;
+    newObjects[index] = newTxt;
+
+    const newCard: Card = {
+      background: card.background,
+      size: card.size,
+      objects: newObjects,
+      filter: card.filter
+    }
+
+    return newCard
+  }
+  else {
+    return card;
+  }
+}
+
+function deleteObject(card: Card, id: number): Card {
+  if (card.objects.length > 0) {
+    const newObjects: CardObject[] = card.objects.filter((element) => { return element.id !== id; });
+    const newCard: Card = {
+      background: card.background,
+      size: card.size,
+      objects: newObjects, 
+      filter: card.filter
+    }
+
+    return newCard;
+  }
+  else {
+    return card;
+  }
+}
+  
 function addObject(card: Card, object: CardObject): Card {
   let newObjects: CardObject[] = card.objects;
   newObjects.push(object);
@@ -179,4 +230,5 @@ function addObject(card: Card, object: CardObject): Card {
   return newCard;
 }
 
-export { setArtObjectPosition, setImagePosition, setTextPosition, addObject, setObjectSize }
+export { setArtObjectPosition, setImagePosition, setTextPosition, 
+  setTextContent, setObjectSize, addObject, deleteObject }

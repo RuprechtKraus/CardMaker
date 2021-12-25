@@ -15,7 +15,7 @@ function createReactElements(objects: CardObject[]): ReactElement[] {
         collection.push(image);
         break;      
       case Types.Text:
-        const text = <Text text={ obj }></Text>;
+        const text = <Text text={ obj } selectedId={ getSelectedId() }></Text>;
         collection.push(text);
         break;
       case Types.ArtObject:

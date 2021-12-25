@@ -6,7 +6,7 @@ import useDragAndDrop from '../../../Hooks/DragAndDrop';
 import { setArtObjectPosition, setObjectSize } from '../../../App/utils';
 import React, { useRef } from 'react';
 import CardObject from '../../../Types/type-card-object';
-import useSelectElement from '../../../Hooks/SelectElement';
+import useSelect from '../../../Hooks/SelectElement';
 import useResize from '../../../Hooks/ResizeElement';
 
 type ArtObjectProps = {
@@ -23,9 +23,9 @@ function ArtObject(props: ArtObjectProps): JSX.Element {
   const dotRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const selection = props.selectedId === id ? styles.selected : "";
 
+  useResize(ref, dotRef, id, object.size, setObjectSize);
   useDragAndDrop(ref, id, object.position, setArtObjectPosition);
-  useResize(ref, dotRef, id, object.size, object.position, setObjectSize, setArtObjectPosition);
-  useSelectElement(ref, id);
+  useSelect(ref, id);
 
   return ( 
     <div ref={ ref } className={ styles.card_object + " " + selection } style={ style } >

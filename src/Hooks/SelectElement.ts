@@ -1,13 +1,12 @@
 import { RefObject, useEffect } from "react";
 import { getSelectedId, resetSelectedId, setSelectedId } from "../Card/card";
 
-function useSelectElement(ref: RefObject<HTMLElement>, id: number): void {
+function useSelect(ref: RefObject<HTMLElement>, id: number): void {
   function onMouseDownHandler(): void {
     setSelectedId(id);
   }
 
   function onMouseClickHandler(e: MouseEvent): void {
-    console.log(e.target !== ref.current);
     if ((e.target !== ref.current) && getSelectedId() === id) {
       resetSelectedId();
     }
@@ -24,4 +23,4 @@ function useSelectElement(ref: RefObject<HTMLElement>, id: number): void {
   });
 }
 
-export default useSelectElement;
+export default useSelect;
