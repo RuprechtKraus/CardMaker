@@ -32,13 +32,13 @@ function Image(props: ImageProps) {
     </div>);
 }
 
-function fetchStyle(image: Img) {
+function fetchStyle(image: Img): React.CSSProperties {
   const style = {
     marginLeft: image.position.x,
     marginTop: image.position.y,
     height: image.size.height,
     width: image.size.width
-  }
+  };
   return style;
 }
 

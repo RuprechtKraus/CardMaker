@@ -4,7 +4,7 @@ import Types from '../Types/object-types'
 import ArtObject from '../Types/type-art-object'
 import Figures from '../Components/CardElements/ArtObject/figures'
 import Image from '../Types/type-image'
-import MyText, { Typestyles } from '../Types/type-text'
+import MyText from '../Types/type-text'
 import Filters from '../Types/type-filter'
 import goat64 from './goat64'
 
@@ -62,8 +62,9 @@ let greeting: MyText = {
   color: "crimson",
   fontSize: 50,
   fontFamily: "Arial",
-  fontStyle: Typestyles.Italic,
-  fontWeight: 900,
+  bold: true,
+  italic: true,
+  underline: false,
   position: {
     x: 300,
     y: 150
@@ -81,8 +82,9 @@ let message: MyText = {
   color: "yellow",
   fontSize: 60,
   fontFamily: "cursive",
-  fontStyle: Typestyles.Normal,
-  fontWeight: 600,
+  bold: true,
+  italic: false,
+  underline: true,
   position: {
     x: 250,
     y: 500

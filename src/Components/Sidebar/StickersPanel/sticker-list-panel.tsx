@@ -1,14 +1,14 @@
-import styles from './sidebar.module.css'
-import { dispatch, getCard, getNextId } from '../../Card/card';
-import Card from '../../Types/type-card';
-import ArtObject from '../../Types/type-art-object';
-import Figures from '../CardElements/ArtObject/figures';
-import Types from '../../Types/object-types';
+import styles from './sticker-list-panel.module.css'
+import { dispatch, getCard, getNextId } from '../../../Card/card';
+import Card from '../../../Types/type-card';
+import ArtObject from '../../../Types/type-art-object';
+import Figures from '../../CardElements/ArtObject/figures';
+import Types from '../../../Types/object-types';
 import BatIcon from './StickerListIcons/bat.png'
 import StarIcon from './StickerListIcons/star.png'
 import CookieIcon from './StickerListIcons/cookie.png'
 import GoatIcon from './StickerListIcons/goat.png'
-import { addObject } from '../../App/utils';
+import { addObject } from '../../../App/utils';
 
 function StickerListPanel(): JSX.Element {
   function addSticker(stickerType: Figures) {
@@ -51,7 +51,7 @@ function StickerListPanel(): JSX.Element {
     stickerList.push(<div className={ styles.stickerList_filler }></div>);
   }
 
-  return <>{ stickerList }</>;
+  return <div className={ styles.sticker_panel }>{ stickerList }</div>;
 }
 
 export default StickerListPanel;

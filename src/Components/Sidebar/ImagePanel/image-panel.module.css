@@ -1,0 +1,10 @@
+.image_panel {
+  display: flex;
+  justify-content: center;
+  
+  padding: 20px 5px;
+}
+
+.file_input {
+  display: none;
+}

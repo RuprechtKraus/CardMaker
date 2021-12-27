@@ -7,22 +7,15 @@ import ArtObject from '../Components/CardElements/ArtObject/art-object';
 import { getSelectedId } from '../Card/card';
 
 function createReactElements(objects: CardObject[]): ReactElement[] {
-  let collection: ReactElement[] = [];
-  objects.forEach(obj => {
-    switch (obj.type) {
+  // eslint-disable-next-line array-callback-return
+  let collection: ReactElement[] = objects.map((element, index) => {
+    switch(element.type) {
       case Types.Image:
-        const image = <Image image={ obj } selectedId={ getSelectedId() }></Image>;
-        collection.push(image);
-        break;      
+        return <Image key={ index } image={ element } selectedId={ getSelectedId() }></Image>
       case Types.Text:
-        const text = <Text text={ obj } selectedId={ getSelectedId() }></Text>;
-        collection.push(text);
-        break;
+        return <Text key={ index } text={ element } selectedId={ getSelectedId() }></Text>
       case Types.ArtObject:
-        const sticker = <ArtObject artObject={ obj } selectedId={ getSelectedId() }></ArtObject>;
-        if (sticker)
-          collection.push(sticker);
-        break;
+        return <ArtObject key={ index } artObject={ element } selectedId={ getSelectedId() }></ArtObject>
     }
   });
   return collection;

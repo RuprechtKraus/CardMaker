@@ -1,0 +1,15 @@
+.format_button {
+  margin-right: 5px;
+
+  background: none;
+  border: none;
+  color: whitesmoke;
+}
+
+:not(.pressed).format_button:hover {
+  background-color: rgba(128, 128, 128, .3);
+}
+
+.pressed {
+  background-color: gray;
+}

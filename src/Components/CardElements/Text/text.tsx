@@ -28,16 +28,17 @@ function Text(props: TextProps) {
     style={ style } dangerouslySetInnerHTML={{ __html: text.text }}></span>;
 }
 
-function fetchStyle(text: Txt) {
-  const style = {
+function fetchStyle(text: Txt): React.CSSProperties {
+  const style: React.CSSProperties = {
     marginLeft: text.position.x,
     marginTop: text.position.y,
     fontSize: text.fontSize,
-    fontStyle: text.fontStyle,
     fontFamily: text.fontFamily,
-    fontWeight: text.fontWeight,
+    fontWeight: text.bold ? "bold" : "none",
+    fontStyle: text.italic ? "italic" : "none",
+    textDecoration: text.underline ? "underline" : "none",
     color: text.color
-  };
+  } as React.CSSProperties;
   return style;
 }
 

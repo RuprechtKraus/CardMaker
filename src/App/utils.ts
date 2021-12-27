@@ -143,9 +143,10 @@ function setTextPosition(card: Card, { id, newPos }: { id: number, newPos: Point
       text: text.text,
       color: text.color,
       fontFamily: text.fontFamily,
-      fontStyle: text.fontStyle,
       fontSize: text.fontSize,
-      fontWeight: text.fontWeight,
+      bold: text.bold,
+      italic: text.italic,
+      underline: text.underline,
       size: text.size,
       position: newPos
     }
@@ -177,9 +178,10 @@ function setTextContent(card: Card, { id, newText }: { id: number, newText: stri
       text: newText,
       color: text.color,
       fontFamily: text.fontFamily,
-      fontStyle: text.fontStyle,
       fontSize: text.fontSize,
-      fontWeight: text.fontWeight,
+      bold: text.bold,
+      italic: text.italic,
+      underline: text.underline,
       size: text.size,
       position: text.position
     }

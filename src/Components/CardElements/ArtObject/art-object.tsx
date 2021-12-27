@@ -35,8 +35,8 @@ function ArtObject(props: ArtObjectProps): JSX.Element {
   );
 }
 
-function fetchStyle(artObject: ArtObj) {
-  const style = {
+function fetchStyle(artObject: ArtObj): React.CSSProperties {
+  const style: React.CSSProperties = {
     marginLeft: artObject.position.x,
     marginTop: artObject.position.y,
     height: artObject.size.height,

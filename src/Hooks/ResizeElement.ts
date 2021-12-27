@@ -4,6 +4,8 @@ import Card from "../Types/type-card";
 import Point from "../Types/type-point";
 import Size from "../Types/type-size";
 
+const MIN_SIZE = 50;
+
 function useResize(
   ref: RefObject<HTMLElement>, dotRef: RefObject<HTMLElement>,
   id: number, initialSize: Size,
@@ -41,10 +43,24 @@ function useResize(
         width: initialSize.width + delta.x
       }
     }
+
+    if (newSize.height < MIN_SIZE) {
+      newSize = {
+        height: MIN_SIZE,
+        width: newSize.width
+      }
+    }
     
-    if (ref.current) {      
+    if (newSize.width < MIN_SIZE) {
+      newSize = {
+        height: newSize.height,
+        width: MIN_SIZE
+      }
+    }
+    
+    if (ref.current) {
       ref.current.style.height = String(newSize.height) + "px";
-      ref.current.style.width = String(newSize.width) + "px";
+      ref.current.style.width = String(newSize.width) + "px"
     }
   }
 

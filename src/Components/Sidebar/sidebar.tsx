@@ -5,9 +5,9 @@ import TitleIcon from '@mui/icons-material/Title';
 import ImageIcon from '@mui/icons-material/Image';
 import HighlightAltIcon from '@mui/icons-material/HighlightAlt';
 import StarsIcon from '@mui/icons-material/Stars';
-import StickerListPanel from './sticker-list-panel';
-import ImagePanel from './image-panel';
-import TextPanel from './text-panel';
+import StickerListPanel from './StickersPanel/sticker-list-panel';
+import ImagePanel from './ImagePanel/image-panel';
+import TextPanel from './TextPanel/text-panel';
 import { useState } from 'react';
 
 enum Panels {
@@ -78,15 +78,9 @@ function Sidebar() {
         { panel === Panels.Select && <div className="sidebar_content_filters">Выделение</div> }
         { panel === Panels.Crop && <div className="sidebar_content_filters">Обрезать</div> }
         { panel === Panels.Filters && <div className="sidebar_content_filters">Фильтры</div> }
-        { panel === Panels.Text && <div className={ styles.texts }>
-          <TextPanel></TextPanel>
-        </div> }
-        { panel === Panels.Images && <div className={ styles.images }>
-          <ImagePanel></ImagePanel>
-        </div> }
-        { panel === Panels.Stickers && <div className={ styles.stickers }>
-          <StickerListPanel></StickerListPanel>
-        </div> }
+        { panel === Panels.Text && <TextPanel></TextPanel> }
+        { panel === Panels.Images && <ImagePanel></ImagePanel> }
+        { panel === Panels.Stickers && <StickerListPanel></StickerListPanel> }
       </div> }
 
       <div className={ styles.expander_block }>

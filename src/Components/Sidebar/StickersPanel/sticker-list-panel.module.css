@@ -1,0 +1,26 @@
+.sticker_panel {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  
+  padding: 15px 5px 15px 5px;
+}
+
+.stickerList_filler {
+  width: 80px;
+}
+
+.sticker_wrapper, .stickerList_filler {
+  border-radius: 3px;
+  padding: 4px;
+  margin-bottom: 10px;
+}
+
+.sticker_wrapper:hover {
+  background-color: #333437;
+}
+
+.sticker {
+  width: 80px;
+  height: 80px;
+}

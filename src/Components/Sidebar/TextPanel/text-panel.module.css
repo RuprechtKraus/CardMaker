@@ -1,0 +1,55 @@
+.text_panel {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+  padding: 20px 50px;
+}
+
+.selection_area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  height: 25px;
+  width: 100%;
+
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.format_area {
+  padding-left: 9px;
+}
+
+.insert_button {
+  margin-right: 9px;
+  
+  background: none;
+  border: none;
+  color: whitesmoke;
+}
+
+.insert_button:hover {
+  background-color: rgba(128, 128, 128, .3);
+}
+
+.arial {
+  font-family: Arial;
+}
+
+.calibri {
+  font-family: Calibri;
+}
+
+.times_new_roman {
+  font-family: 'Times New Roman';
+}
+
+.comic_sans_ms {
+  font-family: 'Comic Sans MS';
+}

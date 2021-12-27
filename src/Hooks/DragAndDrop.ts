@@ -25,6 +25,7 @@ function useDragAndDrop(
       x: e.pageX - startPos.x,
       y: e.pageY - startPos.y
     };
+    
     newPos = {
       x: initialPos.x + delta.x,
       y: initialPos.y + delta.y
