@@ -1,7 +1,7 @@
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { dispatch, getCard, getNextId } from '../../../Card/card';
-import { addObject } from "../../../App/utils"
+import { addObject } from "../../../App/card-modifiers"
 import Types from '../../../Types/object-types';
 import Card from '../../../Types/type-card';
 import Text from '../../../Types/type-text';
@@ -15,6 +15,7 @@ const fontFamilies: { value: string, style: string }[] = [
   { value: "Comic Sans MS", style: styles.comic_sans_ms }
 ]
 const fontSizes: number[] = [ 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 ]
+const defaultText: string = "Sample Text"
 
 function TextPanel(): JSX.Element {  
   const fontFamilyOptions: JSX.Element[] = fontFamilies.map((element, index) => {
@@ -32,11 +33,12 @@ function TextPanel(): JSX.Element {
   }
   const onInsertClick = () => {
     const card: Card = getCard();
+    const color: string = colorPicker.current ? colorPicker.current.value : "black";
     const text: Text = {
       id: getNextId(),
       type: Types.Text,
-      text: "Sample Text",
-      color: "black",
+      text: defaultText,
+      color: color,
       fontFamily: fontFamily,
       fontSize: fontSize,
       bold: bold,
@@ -59,6 +61,7 @@ function TextPanel(): JSX.Element {
   const [bold, setBold] = useState<boolean>(false);
   const [italic, setItalic] = useState<boolean>(false);
   const [underline, setUnderline] = useState<boolean>(false);
+  const colorPicker: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
   
   return (
   <div className={ styles.text_panel }>
@@ -75,6 +78,7 @@ function TextPanel(): JSX.Element {
           title={ "Курсив" } pressed={ italic ? true : false } type={ FormatButtonTypes.Italic }></FormatButton>
         <FormatButton clickHandler={ () => { underline ? setUnderline(false) : setUnderline(true); } } 
           title={ "Подчеркнутый" } pressed={ underline ? true : false } type={ FormatButtonTypes.Underline }></FormatButton>
+        <input ref={ colorPicker } type={ "color" } className={ styles.color_picker }></input>
       </div>
       <button className={ styles.insert_button } onClick={ () => onInsertClick() }>
         <BorderColorIcon></BorderColorIcon>

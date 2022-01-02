@@ -3,7 +3,7 @@ import * as Stickers from './all-objects';
 import ArtObj from '../../../Types/type-art-object';
 import styles from '../card-element.module.css';
 import useDragAndDrop from '../../../Hooks/DragAndDrop';
-import { setArtObjectPosition, setObjectSize } from '../../../App/utils';
+import { setArtObjectPosition, setObjectSize } from '../../../App/card-modifiers';
 import React, { useRef } from 'react';
 import CardObject from '../../../Types/type-card-object';
 import useSelect from '../../../Hooks/SelectElement';
@@ -18,7 +18,7 @@ function ArtObject(props: ArtObjectProps): JSX.Element {
   const object: CardObject = props.artObject;
   const figure: JSX.Element | null = getFigure(props);
   const id: number = object.id;
-  const style = fetchStyle(object);
+  const style: React.CSSProperties = fetchStyle(object);
   const ref: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const dotRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const selection = props.selectedId === id ? styles.selected : "";

@@ -37,6 +37,9 @@
 
 .undo_arrow, .redo_arrow {
   fill: hsla(0, 0%, 100%, .8);
+  
+  background: none;
+  border: none;
 }
 
 .undo_arrow:hover, .redo_arrow:hover {

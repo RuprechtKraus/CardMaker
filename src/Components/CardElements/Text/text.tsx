@@ -3,7 +3,7 @@ import useDragAndDrop from '../../../Hooks/DragAndDrop';
 import Txt from '../../../Types/type-text';
 import styles from '../card-element.module.css';
 import textStyles from './text.module.css';
-import { setTextPosition } from '../../../App/utils';
+import { setTextPosition } from '../../../App/card-modifiers';
 import useSelect from '../../../Hooks/SelectElement';
 import useEditText from '../../../Hooks/EditTextElement';
 

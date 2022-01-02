@@ -8,7 +8,7 @@ import BatIcon from './StickerListIcons/bat.png'
 import StarIcon from './StickerListIcons/star.png'
 import CookieIcon from './StickerListIcons/cookie.png'
 import GoatIcon from './StickerListIcons/goat.png'
-import { addObject } from '../../../App/utils';
+import { addObject } from '../../../App/card-modifiers';
 
 function StickerListPanel(): JSX.Element {
   function addSticker(stickerType: Figures) {

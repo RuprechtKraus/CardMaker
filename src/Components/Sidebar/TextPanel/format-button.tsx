@@ -12,8 +12,8 @@ enum FormatButtonTypes {
 type FormatButtonProps = {
   type: FormatButtonTypes,
   title?: string,
-  pressed: boolean,
-  clickHandler: () => void
+  pressed?: boolean,
+  clickHandler?: () => void
 }
 
 function FormatButton(props: FormatButtonProps): JSX.Element {

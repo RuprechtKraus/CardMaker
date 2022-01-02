@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { addObject } from "../../../App/utils";
+import { addObject } from "../../../App/card-modifiers";
 import { dispatch, getCard, getNextId } from "../../../Card/card";
 import Types from "../../../Types/object-types";
 import Card from "../../../Types/type-card";

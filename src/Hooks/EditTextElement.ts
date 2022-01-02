@@ -1,10 +1,12 @@
 import { RefObject, useEffect } from "react";
-import { deleteObject, setTextContent } from "../App/utils";
+import { deleteObject, setTextContent } from "../App/card-modifiers";
 import { dispatch } from "../Card/card";
 
 function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
+  let contentChanged: boolean = false;
+
   const saveContent = (): void => {
-    if (ref.current) {
+    if (ref.current && contentChanged) {
       ref.current.setAttribute("contenteditable", "false");
       const newText = ref.current.innerHTML;
       if (newText !== "")
@@ -15,6 +17,7 @@ function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
   }
   
   const onBlur = (): void => saveContent();
+  const onInput = (): void => { contentChanged = true };
 
   const onDoubleClick = (): void => {
     ref.current?.setAttribute("contenteditable", "true");
@@ -37,7 +40,7 @@ function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
   }
 
   const onKeyDown = (e: KeyboardEvent): void => {
-    if (e.code === "Escape")
+    if (e.code === "Escape" && ref.current?.getAttribute("contenteditable") === "true")
       saveContent();
   }
 
@@ -46,11 +49,13 @@ function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
     element.current?.addEventListener("dblclick", onDoubleClick);
     element.current?.addEventListener("blur", onBlur);
     element.current?.addEventListener("mousemove", onMouseDown);
+    element.current?.addEventListener("input", onInput);
     document.addEventListener("keydown", onKeyDown);
     return () => {
       element.current?.removeEventListener("dblclick", onDoubleClick);
       element.current?.removeEventListener("blur", onBlur);
       element.current?.removeEventListener("mousemove", onMouseDown);
+      element.current?.removeEventListener("input", onInput);
       document.removeEventListener("keydown", onKeyDown);
     };
   });

@@ -1,8 +1,9 @@
 import { defaultCard } from './default-card';
 import Card from '../Types/type-card';
+import { pushToUndo } from '../App/history';
 
 let card: Card = defaultCard;
-let editorChangeHandler: any = null;
+let editorChangeHandler: Function | null = null;
 let nextId: number = 6;
 let selectedId: number = -1;
 
@@ -12,6 +13,8 @@ function getCard(): Card {
 
 function setCard(newCard: Card): void {
   card = newCard;
+  if (editorChangeHandler)
+    editorChangeHandler();
 }
 
 function getNextId(): number {
@@ -44,10 +47,9 @@ function addEditorChangeHandler(handler: Function): void {
 }
 
 function dispatch(modifyFn: any, payload: any): void {
+  pushToUndo(Array.from(card.objects));
   const newCard = modifyFn(card, payload)
   setCard(newCard);
-  if (editorChangeHandler)
-    editorChangeHandler();
 }
 
 export { getCard, setCard, getNextId, 

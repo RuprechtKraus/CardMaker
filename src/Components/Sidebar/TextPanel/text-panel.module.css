@@ -38,6 +38,16 @@
   background-color: rgba(128, 128, 128, .3);
 }
 
+.color_picker {
+  width: 30px;
+  height: 30px;
+
+  border: none;
+  background: none;
+}
+
+/* Fonts */
+
 .arial {
   font-family: Arial;
 }
