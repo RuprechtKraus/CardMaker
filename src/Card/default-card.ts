@@ -7,6 +7,7 @@ import Image from '../Types/type-image'
 import MyText from '../Types/type-text'
 import Filters from '../Types/type-filter'
 import goat64 from './goat64'
+import { bg64 } from '../App/bg'
 
 const defaultCardSize: Size = {
   width: 600,
@@ -96,19 +97,17 @@ let message: MyText = {
 }
 
 const defaultCard: Card = {
-  background: {
-    id: 0,
-    type: Types.Image,
-    data: "",
-    size: defaultCardSize,
-    position: {
-      x: 0,
-      y: 0,
-    }
-  },
+  background: "url(data:image/jpeg;base64," + bg64 + ")",
   size: defaultCardSize,
   objects: [ goat, bat, greeting, star, message ],
   filter: Filters.None
 }
 
-export { defaultCardSize, defaultCard }
+const emptyCard: Card = {
+  background: "",
+  size: defaultCardSize,
+  objects: [],
+  filter: Filters.None
+}
+
+export { defaultCardSize, defaultCard, emptyCard }

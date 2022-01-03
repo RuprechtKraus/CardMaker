@@ -2,13 +2,20 @@ import styles from './header.module.css';
 import Dropdown from '../Dropdown/dropdown';
 import logo from './logo.svg';
 import { redo, undo } from '../../App/history';
+import { createEmptyCard } from '../../Card/card';
 
 function Header() {
+  const createNewCard = () => {
+    const result = window.confirm("Это действие удалит все несохраненные данные");
+    if (result)
+      createEmptyCard();
+  }
+
   return (
     <header className={ styles.header }>
       <img src={ logo } className={ styles.logo } alt="logo" />
       <Dropdown label={ "Файл" }>
-        <button>Новый файл</button>
+        <button onClick={ () => createNewCard() }>Новый файл</button>
         <button>Импорт</button>
         <button>Экспорт</button>
       </Dropdown>

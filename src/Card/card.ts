@@ -1,6 +1,6 @@
-import { defaultCard } from './default-card';
+import { defaultCard, emptyCard } from './default-card';
 import Card from '../Types/type-card';
-import { pushToUndo } from '../App/history';
+import { saveCardState } from '../App/history';
 
 let card: Card = defaultCard;
 let editorChangeHandler: Function | null = null;
@@ -15,6 +15,10 @@ function setCard(newCard: Card): void {
   card = newCard;
   if (editorChangeHandler)
     editorChangeHandler();
+}
+
+function createEmptyCard(): void {
+  setCard(emptyCard);
 }
 
 function getNextId(): number {
@@ -46,12 +50,17 @@ function addEditorChangeHandler(handler: Function): void {
   editorChangeHandler = handler;
 }
 
+/**
+ * Applies modification function to card and saves it's last state
+ * @param modifyFn Function that modifies card
+ * @param payload Params for modification function
+ */
 function dispatch(modifyFn: any, payload: any): void {
-  pushToUndo(Array.from(card.objects));
+  saveCardState();
   const newCard = modifyFn(card, payload)
   setCard(newCard);
 }
 
-export { getCard, setCard, getNextId, 
+export { getCard, setCard, createEmptyCard, getNextId, 
   setSelectedId, getSelectedId, resetSelectedId,
   dispatch, addEditorChangeHandler }

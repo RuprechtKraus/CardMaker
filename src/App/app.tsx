@@ -1,29 +1,38 @@
 import { ReactElement, useEffect } from 'react';
+import { createReactElements } from '../utils/object-casting';
 import Header from '../Components/Header/header';
 import Sidebar from '../Components/Sidebar/sidebar';
 import Card from '../Types/type-card';
-import { bg64 } from './bg';
-import { createReactElements } from '../utils/object-casting';
 import styles from './app.module.css';
+import { redo, undo } from './history';
 
 type AppProps = {
   card: Card;
 }
 
 function App(props: AppProps): JSX.Element {
-  useEffect(() => {
-    document.title = "CardMaker"
-  }, []);
-
   const card: Card = props.card;
   const objects: ReactElement[] = createReactElements(card.objects);
   const cardStyle = {
     width: card.size.width,
     height: card.size.height,
-    backgroundImage: "url(data:image/jpeg;base64," + bg64 + ")",
-    // backgroundImage: "",
-    backgroundSize: "cover"
+    backgroundImage: card.background
   }
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.ctrlKey && e.code === "KeyZ")
+      undo();
+    else if (e.ctrlKey && e.code === "KeyY")
+      redo();
+  }
+
+  useEffect(() => {
+    document.title = "CardMaker";
+    document.addEventListener("keydown", onKeyDown);
+    return() => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
   
   return (
     <div className={ styles.app }>
