@@ -97,7 +97,7 @@ let message: MyText = {
 }
 
 const defaultCard: Card = {
-  background: "url(data:image/jpeg;base64," + bg64 + ")",
+  background: "data:image/jpeg;base64," + bg64,
   size: defaultCardSize,
   objects: [ goat, bat, greeting, star, message ],
   filter: Filters.None

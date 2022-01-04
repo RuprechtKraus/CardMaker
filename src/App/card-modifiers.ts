@@ -203,6 +203,18 @@ function setTextContent(card: Card, { id, newText }: { id: number, newText: stri
   }
 }
 
+function addObject(card: Card, object: CardObject): Card {
+  let newObjects: CardObject[] = card.objects;
+  newObjects.push(object);
+  const newCard: Card = {
+    background: card.background,
+    size: card.size,
+    objects: newObjects,
+    filter: card.filter
+  }
+  return newCard;
+}
+
 function deleteObject(card: Card, id: number): Card {
   if (card.objects.length > 0) {
     const newObjects: CardObject[] = card.objects.filter((element) => { return element.id !== id; });
@@ -219,18 +231,17 @@ function deleteObject(card: Card, id: number): Card {
     return card;
   }
 }
-  
-function addObject(card: Card, object: CardObject): Card {
-  let newObjects: CardObject[] = card.objects;
-  newObjects.push(object);
+
+function setBackground(card: Card, data: string): Card {
   const newCard: Card = {
-    background: card.background,
+    background: data,
     size: card.size,
-    objects: newObjects,
+    objects: card.objects,
     filter: card.filter
   }
   return newCard;
 }
 
-export { setArtObjectPosition, setImagePosition, setTextPosition, 
-  setTextContent, setObjectSize, addObject, deleteObject }
+export { setArtObjectPosition, setImagePosition, setTextPosition, setTextContent }
+export { setObjectSize, addObject, deleteObject }
+export { setBackground }

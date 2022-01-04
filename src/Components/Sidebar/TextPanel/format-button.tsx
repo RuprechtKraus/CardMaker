@@ -17,14 +17,14 @@ type FormatButtonProps = {
 }
 
 function FormatButton(props: FormatButtonProps): JSX.Element {
-  const button: JSX.Element = getButton(props.type);
+  const buttonIcon: JSX.Element = getButtonIcon(props.type);
   const pressedStyle = props.pressed ? styles.pressed : "";
 
   return <button onClick={ props.clickHandler } className={ styles.format_button + " " + pressedStyle }
-    title={ props.title }>{ button }</button>;
+    title={ props.title }>{ buttonIcon }</button>;
 }
 
-function getButton(type: FormatButtonTypes): JSX.Element {
+function getButtonIcon(type: FormatButtonTypes): JSX.Element {
   switch(type) {
     case FormatButtonTypes.Bold:
       return <FormatBoldIcon></FormatBoldIcon>

@@ -4,7 +4,7 @@ type ImageInfo = {
   data: string
 }
 
-async function fileToImage(file: File): Promise<ImageInfo> {
+async function uploadImage(file: File): Promise<ImageInfo> {
   const promise = new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -22,5 +22,5 @@ async function fileToImage(file: File): Promise<ImageInfo> {
   }
 }
 
-export { fileToImage };
+export { uploadImage };
 export type { ImageInfo };

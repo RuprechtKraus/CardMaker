@@ -21,6 +21,7 @@
 .card {
   position: relative;
   background-color: white;
+  background-repeat: no-repeat;
   overflow: hidden;
 }
 

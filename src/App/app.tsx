@@ -1,22 +1,24 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { createReactElements } from '../utils/object-casting';
 import Header from '../Components/Header/header';
 import Sidebar from '../Components/Sidebar/sidebar';
 import Card from '../Types/type-card';
 import styles from './app.module.css';
 import { redo, undo } from './history';
+import ImportModal from '../Components/ImportModalWindow/ImportModal';
 
 type AppProps = {
   card: Card;
 }
 
 function App(props: AppProps): JSX.Element {
+  const [modalWindow, setModalWindow] = useState<boolean>(false);
   const card: Card = props.card;
   const objects: ReactElement[] = createReactElements(card.objects);
   const cardStyle = {
     width: card.size.width,
     height: card.size.height,
-    backgroundImage: card.background
+    backgroundImage: "url(" + card.background + ")"
   }
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -36,7 +38,7 @@ function App(props: AppProps): JSX.Element {
   
   return (
     <div className={ styles.app }>
-      <Header></Header>
+      <Header showModal={ () => setModalWindow(true) }></Header>
       <div className={ styles.container }>
         <Sidebar></Sidebar>
         <div className={ styles.work_area }>
@@ -45,6 +47,7 @@ function App(props: AppProps): JSX.Element {
           </div>
         </div>
       </div>
+      { modalWindow && <ImportModal closeModal={ () => setModalWindow(false) }></ImportModal> }
     </div>)
 }
 

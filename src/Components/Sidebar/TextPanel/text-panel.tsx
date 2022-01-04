@@ -21,17 +21,21 @@ function TextPanel(): JSX.Element {
   const fontFamilyOptions: JSX.Element[] = fontFamilies.map((element, index) => {
     return <option className={ element.style } key={ index } value={ element.value }>{ element.value }</option>
   });
+
   const fontSizesOptions: JSX.Element[] = fontSizes.map((element, index) => {
     return <option key={ index } value={ element }>{ element }</option>
   });
-  const onFontFamilyChanged = (id: number) => {
+  
+  const onFontFamilyChanged = (id: number): void => {
     const style: string = fontFamilies[id].style;
     setFontFamily(style);
   }
-  const onFontSizeChanged = (id: number) => {
+
+  const onFontSizeChanged = (id: number): void => {
     setFontSize(fontSizes[id]);
   }
-  const onInsertClick = () => {
+
+  const onInsertClick = (): void => {
     const card: Card = getCard();
     const color: string = colorPicker.current ? colorPicker.current.value : "black";
     const text: Text = {
@@ -56,6 +60,7 @@ function TextPanel(): JSX.Element {
 
     dispatch(addObject, text);
   }
+
   const [fontFamily, setFontFamily] = useState<string>(styles.arial);
   const [fontSize, setFontSize] = useState<number>(fontSizes[0]);
   const [bold, setBold] = useState<boolean>(false);

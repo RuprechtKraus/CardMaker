@@ -1,68 +1,57 @@
 import { getCard, setCard } from "../Card/card";
 import Card from "../Types/type-card";
-import CardObject from "../Types/type-card-object";
+import { deepCopy } from "../utils/deep-copy";
 
 const MAX_HISTORY_SIZE: number = 10;
-let undoStack: CardObject[][] = [];
-let redoStack: CardObject[][] = [];
+let undoStack: Card[] = [];
+let redoStack: Card[] = [];
 
 /**
  * Restores last card state
  */
 function undo(): void {
-  const objects: CardObject[] | undefined = undoStack.pop();
-  const card: Card = getCard();
-  
-  if (objects)
-    applyAction(card, objects);
-  else
-    return;
-  
-  pushToRedo(Array.from(card.objects));
+  const card: Card | undefined = undoStack.pop();
+  if (card)
+    applyState(card, pushToRedo);
 }
 
 /**
  * Repeats last undo action
  */
 function redo(): void {
-  const objects: CardObject[] | undefined = redoStack.pop();
-  const card: Card = getCard();
-
-  if (objects)
-    applyAction(card, objects);
-  else
-    return;
-
-  pushToUndo(Array.from(card.objects));
-}
-
-function applyAction(card: Card, objects: CardObject[]): void {
-  const newCard: Card = {
-    background: card.background,
-    size: card.size,
-    filter: card.filter,
-    objects: objects
-  }
-  setCard(newCard);
+  const card: Card | undefined = redoStack.pop();
+  if (card)
+    applyState(card, pushToUndo);
 }
 
 /**
- * Savess last card state
+ * Applies card state and saves current card state
+ * @param card Card state to apply
+ * @param pushAction pushToUndo or pushToRedo functions
+ */
+function applyState(state: Card, pushAction: (card: Card) => void): void {
+  const currentCard: Card = getCard();
+  setCard(state);
+  pushAction(deepCopy(currentCard));
+}
+
+/**
+ * Saves last card state
  */
 function saveCardState(): void {
   const card: Card = getCard();
-  pushToUndo(Array.from(card.objects));
+  pushToUndo(deepCopy(card));
   redoStack.length = 0;
 }
 
-function pushToUndo(objects: CardObject[]): void {
+function pushToUndo(card: Card): void {
   if (undoStack.length === MAX_HISTORY_SIZE)
     undoStack.splice(0, 1);
-  undoStack.push(objects);
+  undoStack.push(card);
 }
 
-function pushToRedo(objects: CardObject[]): void {
-  redoStack.push(objects);
+function pushToRedo(card: Card): void {
+  redoStack.push(card);
 }
 
 export { undo, redo, saveCardState }

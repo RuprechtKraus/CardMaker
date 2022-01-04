@@ -45,3 +45,7 @@
 .undo_arrow:hover, .redo_arrow:hover {
   fill: #fff;
 }
+
+.file_input {
+  display: none;
+}
