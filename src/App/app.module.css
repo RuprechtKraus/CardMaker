@@ -28,3 +28,7 @@
 .card svg {
   pointer-events: none;
 }
+
+.file_input {
+  display: none;
+}

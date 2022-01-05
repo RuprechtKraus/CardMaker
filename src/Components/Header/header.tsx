@@ -2,14 +2,10 @@ import styles from './header.module.css';
 import Dropdown from '../Dropdown/dropdown';
 import logo from './logo.svg';
 import { redo, undo } from '../../App/history';
-import { createEmptyCard, dispatch, getCard } from '../../Card/card';
-import { useRef } from 'react';
-import { uploadImage, ImageInfo } from '../../utils/file-handlers';
-import Card from '../../Types/type-card';
-import { setBackground } from '../../App/card-modifiers';
+import { createEmptyCard } from '../../Card/card';
 
 type HeaderProps = {
-  showModal: () => void
+  imageImport: () => void
 }
 
 function Header(props: HeaderProps): JSX.Element {
@@ -19,37 +15,12 @@ function Header(props: HeaderProps): JSX.Element {
       createEmptyCard();
   }
 
-  const inputRef: React.Ref<HTMLInputElement> = useRef<HTMLInputElement>(null);
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => importFile(e.currentTarget.files?.item(0));
-  async function importFile(file: File | null | undefined): Promise<void> {
-    if (!file)
-      return;
-
-    const card: Card = getCard();
-    const info: ImageInfo = await uploadImage(file);
-    if (info.width > card.size.width || info.height > card.size.height) {
-      props.showModal();
-    }
-    else {
-      // const newCard: Card = {
-      //   background: info.data,
-      //   size: card.size,
-      //   objects: card.objects,
-      //   filter: Filters.None
-      // }
-      // setCard(newCard);
-      dispatch(setBackground, info.data);
-    }
-  }
-  
-
   return (
     <header className={ styles.header }>
-      <input ref={ inputRef } onChange={ onInputChange } className={ styles.file_input } type="file" accept=".jpg,.jpeg,.png" />
       <img src={ logo } className={ styles.logo } alt="logo" />
       <Dropdown label={ "Файл" }>
         <button onClick={ () => createNewCard() }>Новый файл</button>
-        <button onClick={ () => inputRef.current?.click() }>Импорт</button>
+        <button onClick={ props.imageImport }>Импорт</button>
         <button>Сохранить как</button>
       </Dropdown>
       <button  title="Отменить" className={ styles.undo_arrow } onClick={ undo }>
