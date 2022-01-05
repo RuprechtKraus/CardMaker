@@ -6,9 +6,10 @@ import Card from '../Types/type-card';
 import styles from './app.module.css';
 import { redo, undo } from './history';
 import ImportModal, { Option } from '../Components/ImportModalWindow/import-modal';
-import { dispatch, getCard, setCard } from '../Card/card';
+import { dispatch, getCard } from '../Card/card';
 import { ImageInfo, uploadImage } from '../utils/file-handlers';
 import { setBackground } from './card-modifiers';
+import Size from '../Types/type-size';
 
 type AppProps = {
   card: Card;
@@ -27,9 +28,9 @@ function App(props: AppProps): JSX.Element {
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.ctrlKey && e.code === "KeyZ")
-    undo();
+      undo();
     else if (e.ctrlKey && e.code === "KeyY")
-    redo();
+      redo();
   }
   
   const [importedImage, setImportedImage] = useState<ImageInfo | null>(null);
@@ -46,35 +47,36 @@ function App(props: AppProps): JSX.Element {
       setImportedImage(info);
     }
     else {
-      dispatch(setBackground, info.data);
+      const data: string = info.data;
+      const size: Size = getCard().size;
+      dispatch(setBackground, { data, size });
     }
   }
 
   const getOption = (option: Option): void => {
     const image = importedImage;
+    
     switch(option) {
       case Option.Resize:
         if (image) {
-          const newCard: Card = {
-            background: image.data,
-            size: {
-              width: image.width,
-              height: image.height
-            },
-            objects: card.objects,
-            filter: card.filter
-          }
-          setCard(newCard); 
+          const data: string = image.data;
+          const size: Size = { 
+            height: image.height,
+            width: image.width
+          };
+          dispatch(setBackground, { data, size });
         }
         break;
       case Option.Crop:
         if (image) {
-          dispatch(setBackground, image.data);
+          const data: string = image.data;
+          dispatch(setBackground, { data });
         }
         break;
       case Option.Close:
         break;
     }
+
     setModalWindow(false);
     setImportedImage(null);
   }
@@ -93,8 +95,10 @@ function App(props: AppProps): JSX.Element {
       <div className={ styles.container }>
         <Sidebar></Sidebar>
         <div className={ styles.work_area }>
-          <div className={ styles.card } style={ cardStyle }>
-            { objects }
+          <div className={ styles.card_wrapper }>
+            <div style={ cardStyle } className={ styles.card }>
+              { objects }
+            </div>
           </div>
         </div>
       </div>

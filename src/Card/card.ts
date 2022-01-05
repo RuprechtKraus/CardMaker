@@ -1,6 +1,7 @@
 import { defaultCard, emptyCard } from './default-card';
 import Card from '../Types/type-card';
-import { saveCardState } from '../App/history';
+import { clearHistory, saveCardState } from '../App/history';
+import { deepCopy } from '../utils/deep-copy';
 
 let card: Card = defaultCard;
 let editorChangeHandler: Function | null = null;
@@ -18,7 +19,8 @@ function setCard(newCard: Card): void {
 }
 
 function createEmptyCard(): void {
-  setCard(emptyCard);
+  setCard(deepCopy(emptyCard));
+  clearHistory();
 }
 
 function getNextId(): number {

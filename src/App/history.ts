@@ -54,4 +54,9 @@ function pushToRedo(card: Card): void {
   redoStack.push(card);
 }
 
-export { undo, redo, saveCardState }
+function clearHistory(): void {
+  undoStack.length = 0;
+  redoStack.length = 0;
+}
+
+export { undo, redo, saveCardState, clearHistory }

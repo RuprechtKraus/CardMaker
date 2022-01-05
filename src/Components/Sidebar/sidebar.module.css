@@ -2,6 +2,10 @@
 
 .sidebar {
   display: flex;
+  z-index: 20;
+
+  /* position: fixed; */
+  height: 100%;
 }
 
 .menu {

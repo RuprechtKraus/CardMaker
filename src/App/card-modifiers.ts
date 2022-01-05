@@ -6,6 +6,7 @@ import Image from "../Types/type-image";
 import Text from "../Types/type-text";
 import Size from "../Types/type-size";
 import Types from "../Types/object-types";
+import { getCard } from "../Card/card";
 
 function setArtObjectPosition(card: Card, { id, newPos }: { id: number, newPos: Point }): Card {
   const index: number = card.objects.findIndex((element) => { return element.id === id; });
@@ -232,10 +233,17 @@ function deleteObject(card: Card, id: number): Card {
   }
 }
 
-function setBackground(card: Card, data: string): Card {
+/**
+ * Sets new background and crops the image if new card size is not provided
+ * @param card Current card
+ * @param data Background image encoded in base64
+ * @param size New card size. If not provided current size will be used
+ * @returns Card with new background and size
+ */
+function setBackground(card: Card, { data, size = getCard().size }: { data: string, size: Size }): Card {
   const newCard: Card = {
     background: data,
-    size: card.size,
+    size: size,
     objects: card.objects,
     filter: card.filter
   }
