@@ -16,8 +16,8 @@ function Dropdown(props: DropdownProps) {
   const ref = createRef<HTMLDivElement>();
 
   useEffect(() => {
-    const clickedOutside = (e: any) => {
-      if (open && ref.current && !ref.current.contains(e.target)) {
+    const clickedOutside = (e: MouseEvent) => {
+      if (open && ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
       }
     }

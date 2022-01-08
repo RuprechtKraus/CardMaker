@@ -1,11 +1,12 @@
 import styles from './header.module.css';
 import Dropdown from '../Dropdown/dropdown';
-import logo from './logo.svg';
+import logo from './logo.png';
 import { redo, undo } from '../../App/history';
 import { createEmptyCard } from '../../Card/card';
 
 type HeaderProps = {
-  imageImport: () => void
+  imageUpload: () => void,
+  imageDownload: () => void
 }
 
 function Header(props: HeaderProps): JSX.Element {
@@ -17,11 +18,11 @@ function Header(props: HeaderProps): JSX.Element {
 
   return (
     <header className={ styles.header }>
-      <img src={ logo } className={ styles.logo } alt="logo" />
+      <img src={ logo }  className={ styles.logo } alt="logo" />
       <Dropdown label={ "Файл" }>
-        <button onClick={ () => createNewCard() }>Новый файл</button>
-        <button onClick={ props.imageImport }>Импорт</button>
-        <button>Сохранить как</button>
+        <button onClick={ createNewCard }>Новый файл</button>
+        <button onClick={ props.imageUpload }>Импорт</button>
+        <button onClick={ props.imageDownload }>Сохранить как</button>
       </Dropdown>
       <button  title="Отменить" className={ styles.undo_arrow } onClick={ undo }>
         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M.241 6.742l5.485-5.5a.821.821 0 0 1 1.164 0 .827.827 0 0 1 0 1.167L2.81 6.5h4.54c4.77 0 8.65 3.892 8.65 8.675a.824.824 0 0 1-.823.825.824.824 0 0 1-.823-.825c0-3.873-3.141-7.024-7.004-7.024H2.81l4.08 4.092a.827.827 0 0 1-.582 1.408.819.819 0 0 1-.582-.24L.241 7.91a.827.827 0 0 1 0-1.168" fillRule="evenodd"></path></svg>

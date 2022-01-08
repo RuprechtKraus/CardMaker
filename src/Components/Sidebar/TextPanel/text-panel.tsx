@@ -13,9 +13,9 @@ const fontFamilies: { value: string, style: string }[] = [
   { value: "Calibri", style: styles.calibri },
   { value: "Times New Roman", style: styles.times_new_roman },
   { value: "Comic Sans MS", style: styles.comic_sans_ms }
-]
-const fontSizes: number[] = [ 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 ]
-const defaultText: string = "Sample Text"
+];
+const fontSizes: number[] = [ 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 ];
+const defaultText: string = "Sample Text";
 
 function TextPanel(): JSX.Element {  
   const fontFamilyOptions: JSX.Element[] = fontFamilies.map((element, index) => {
@@ -27,7 +27,7 @@ function TextPanel(): JSX.Element {
   });
   
   const onFontFamilyChanged = (id: number): void => {
-    const style: string = fontFamilies[id].style;
+    const style: string = fontFamilies[id].value;
     setFontFamily(style);
   }
 
@@ -57,11 +57,10 @@ function TextPanel(): JSX.Element {
         width: 0
       }
     }
-
     dispatch(addObject, text);
   }
 
-  const [fontFamily, setFontFamily] = useState<string>(styles.arial);
+  const [fontFamily, setFontFamily] = useState<string>(fontFamilies[0].value);
   const [fontSize, setFontSize] = useState<number>(fontSizes[0]);
   const [bold, setBold] = useState<boolean>(false);
   const [italic, setItalic] = useState<boolean>(false);

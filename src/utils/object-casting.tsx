@@ -12,7 +12,7 @@ function createReactElements(objects: CardObject[]): ReactElement[] {
     switch(element.type) {
       case Types.Image:
         return <Image key={ index } image={ element } selectedId={ getSelectedId() }></Image>
-      case Types.Text:
+        case Types.Text:
         return <Text key={ index } text={ element } selectedId={ getSelectedId() }></Text>
       case Types.ArtObject:
         return <ArtObject key={ index } artObject={ element } selectedId={ getSelectedId() }></ArtObject>

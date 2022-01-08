@@ -3,11 +3,10 @@ import { deleteObject, setTextContent } from "../App/card-modifiers";
 import { dispatch } from "../Card/card";
 
 function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
-  let contentChanged: boolean = false;
-
   const saveContent = (): void => {
-    if (ref.current && contentChanged) {
+    if (ref.current) {
       ref.current.setAttribute("contenteditable", "false");
+      ref.current.blur();
       const newText = ref.current.innerHTML;
       if (newText !== "")
         dispatch(setTextContent, { id, newText });
@@ -15,9 +14,13 @@ function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
         dispatch(deleteObject, id);
     }
   }
-  
-  const onBlur = (): void => saveContent();
-  const onInput = (): void => { contentChanged = true };
+
+  function clickedOutside(e: MouseEvent): void {
+    if (ref.current && !ref.current.contains(e.target as Node) && 
+        ref.current.getAttribute("contenteditable") === "true") {
+      saveContent();
+    }
+  }
 
   const onDoubleClick = (): void => {
     ref.current?.setAttribute("contenteditable", "true");
@@ -47,15 +50,13 @@ function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
   useEffect(() => {
     const element = ref;
     element.current?.addEventListener("dblclick", onDoubleClick);
-    element.current?.addEventListener("blur", onBlur);
     element.current?.addEventListener("mousemove", onMouseDown);
-    element.current?.addEventListener("input", onInput);
+    document.addEventListener("click", clickedOutside);
     document.addEventListener("keydown", onKeyDown);
     return () => {
       element.current?.removeEventListener("dblclick", onDoubleClick);
-      element.current?.removeEventListener("blur", onBlur);
       element.current?.removeEventListener("mousemove", onMouseDown);
-      element.current?.removeEventListener("input", onInput);
+      document.removeEventListener("click", clickedOutside);;
       document.removeEventListener("keydown", onKeyDown);
     };
   });

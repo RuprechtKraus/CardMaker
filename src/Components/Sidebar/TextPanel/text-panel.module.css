@@ -23,6 +23,7 @@
 }
 
 .format_area {
+  display: flex;
   padding-left: 9px;
 }
 

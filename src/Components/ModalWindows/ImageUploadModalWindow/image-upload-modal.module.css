@@ -1,0 +1,17 @@
+.upload_window {
+  justify-content: space-evenly;
+}
+
+.text {
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.option_button {
+  height: 45px;
+  width: 130px;
+}

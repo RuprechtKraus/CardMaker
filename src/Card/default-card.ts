@@ -65,7 +65,7 @@ let greeting: MyText = {
   fontFamily: "Arial",
   bold: true,
   italic: true,
-  underline: false,
+  underline: true,
   position: {
     x: 300,
     y: 150

@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+
+.download_window {
+  justify-content: space-around;
+  padding: 30px;
+}
+
+.filename_area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-size: 18px;
+}
+
+.input, .extension_button, .quality_select, .cancel_button {
+  font-family: 'Poppins', sans-serif;
+  border: 1px solid #adadad;
+  border-radius: 5px;
+}
+
+.input {
+  height: 30px;
+  width: 60%;
+  font-size: 14px;
+  text-indent: 10px;
+  outline: none;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.extension_button {
+  width: 90px;
+  height: 35px;
+  font-size: 14px;
+  background: none;
+}
+
+.extension_button:hover, input:focus, .quality_select:focus, .selected {
+  border: 1px solid #2c7dfa;
+}
+
+.extension_button.selected {
+  color: white;
+  background: #2c7dfa;
+}
+
+.quality_select {
+  width: 230px;
+  background: none;
+  text-indent: 5px;
+}
+
+.quality_select option {
+  background-color: white;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.save_button {
+  height: 40px;
+  margin-right: 20px;
+  flex: 3;
+}
+
+.save_button:active {
+  filter: brightness(.95);
+}
+
+.cancel_button {
+  flex: 1;
+  background: none;
+}
+
+.cancel_button:hover {
+  background: #f0f0f0;
+}
+
+.cancel_button:active {
+  background: #e4e4e4;
+}

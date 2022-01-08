@@ -1,9 +1,9 @@
 import Types from './object-types';
-import CardObject from './type-card-object-base';
+import CardObjectBase from './type-card-object-base';
 
 type Image = {
   readonly data: string,
   readonly type: Types.Image,
-} & CardObject
+} & CardObjectBase
 
 export default Image;

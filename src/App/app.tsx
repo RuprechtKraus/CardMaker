@@ -5,18 +5,21 @@ import Sidebar from '../Components/Sidebar/sidebar';
 import Card from '../Types/type-card';
 import styles from './app.module.css';
 import { redo, undo } from './history';
-import ImportModal, { Option } from '../Components/ImportModalWindow/import-modal';
+import ImageUploadModal, { Option } from '../Components/ModalWindows/ImageUploadModalWindow/image-upload-modal';
 import { dispatch, getCard } from '../Card/card';
 import { ImageInfo, uploadImage } from '../utils/file-handlers';
 import { setBackground } from './card-modifiers';
 import Size from '../Types/type-size';
+import ImageDownloadModal, { ImageExtension, Quality } from '../Components/ModalWindows/ImageDownloadModalWindow/image-download-modal';
+import { saveAsImage } from '../utils/card-to-image';
 
 type AppProps = {
   card: Card;
 }
 
 function App(props: AppProps): JSX.Element {
-  const [modalWindow, setModalWindow] = useState<boolean>(false);
+  const [uploadWindow, setUploadWindow] = useState<boolean>(false);
+  const [downloadWindow, setDownloadWindow] = useState<boolean>(false);
   const imageInput: React.Ref<HTMLInputElement> = useRef<HTMLInputElement>(null);
   const card: Card = props.card;
   const objects: ReactElement[] = createReactElements(card.objects);
@@ -43,7 +46,7 @@ function App(props: AppProps): JSX.Element {
     const info: ImageInfo = await uploadImage(file);
 
     if (info.width > card.size.width || info.height > card.size.height) {
-      setModalWindow(true);
+      setUploadWindow(true);
       setImportedImage(info);
     }
     else {
@@ -77,8 +80,13 @@ function App(props: AppProps): JSX.Element {
         break;
     }
 
-    setModalWindow(false);
+    setUploadWindow(false);
     setImportedImage(null);
+  }
+  
+  const saveImage = async (name: string, extension: ImageExtension, quality: Quality) => {
+    await saveAsImage(name, extension, quality);
+    setDownloadWindow(false);
   }
   
   useEffect(() => {
@@ -91,7 +99,8 @@ function App(props: AppProps): JSX.Element {
   
   return (
     <div className={ styles.app }>
-      <Header imageImport={ () => imageInput.current?.click() }></Header>
+      <Header imageUpload={ () => imageInput.current?.click() } 
+      imageDownload={ () => setDownloadWindow(true) }></Header>
       <div className={ styles.container }>
         <Sidebar></Sidebar>
         <div className={ styles.work_area }>
@@ -103,7 +112,9 @@ function App(props: AppProps): JSX.Element {
         </div>
       </div>
       <input ref={ imageInput } onChange={ onInputChange } className={ styles.file_input } type="file" accept=".jpg,.jpeg,.png" />
-      { modalWindow && <ImportModal selectOption={ getOption }></ImportModal> }
+      { uploadWindow && <ImageUploadModal selectOption={ getOption }></ImageUploadModal> }
+      { downloadWindow && <ImageDownloadModal saveImage={ saveImage } 
+      closeWindow={ () => setDownloadWindow(false) }></ImageDownloadModal> }
     </div>)
 }
 
