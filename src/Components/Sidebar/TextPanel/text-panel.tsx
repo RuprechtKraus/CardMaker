@@ -1,6 +1,6 @@
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { ChangeEvent, useRef, useState } from "react";
-import { dispatch, getCard, getNextId } from '../../../Card/card';
+import { dispatch, getCard, nextId } from '../../../Card/card';
 import { addObject } from "../../../App/card-modifiers"
 import Types from '../../../Types/object-types';
 import Card from '../../../Types/type-card';
@@ -39,7 +39,7 @@ function TextPanel(): JSX.Element {
     const card: Card = getCard();
     const color: string = colorPicker.current ? colorPicker.current.value : "black";
     const text: Text = {
-      id: getNextId(),
+      id: nextId(),
       type: Types.Text,
       text: defaultText,
       color: color,

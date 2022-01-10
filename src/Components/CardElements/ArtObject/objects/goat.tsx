@@ -1,4 +1,4 @@
-function Goat() {
+function Goat(): JSX.Element {
   return (<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512.001 512.001" preserveAspectRatio="none" height="100%" width="100%" enableBackground="new 0 0 512.001 512.001" xmlSpace="preserve">
 <path fill="#AEADB3" d="M151.328,135.699c-43.214,0-63.728,15.521-83.568,30.53c-12.013,9.089-23.361,17.674-40.941,24.068
  l-19.489,7.089L19.468,214.2c1.041,1.441,10.651,14.396,27.507,25.287c15.306,9.889,31.65,14.888,48.265,14.887

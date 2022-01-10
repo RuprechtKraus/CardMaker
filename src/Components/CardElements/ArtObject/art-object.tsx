@@ -56,6 +56,14 @@ function getFigure(props: ArtObjectProps): JSX.Element | null {
       return <Stickers.Goat></Stickers.Goat>;
     case Figures.Cookie:
       return <Stickers.Cookie></Stickers.Cookie>;
+    case Figures.SantaHat:
+      return <Stickers.SantaHat></Stickers.SantaHat>
+    case Figures.Heart:
+      return <Stickers.Heart></Stickers.Heart>
+    case Figures.WitchHat:
+      return <Stickers.WitchHat></Stickers.WitchHat>
+    case Figures.Ghost:
+      return <Stickers.Ghost></Stickers.Ghost>
     default:
       return null;
   }

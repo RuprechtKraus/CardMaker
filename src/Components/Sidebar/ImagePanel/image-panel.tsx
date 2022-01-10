@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { addObject } from "../../../App/card-modifiers";
-import { dispatch, getCard, getNextId } from "../../../Card/card";
+import { dispatch, getCard, nextId } from "../../../Card/card";
 import Types from "../../../Types/object-types";
 import Card from "../../../Types/type-card";
 import MyImage from "../../../Types/type-image";
@@ -15,7 +15,7 @@ function ImagePanel(): JSX.Element {
       return;
 
     const info: ImageInfo = await uploadImage(file);
-    const id: number = getNextId();
+    const id: number = nextId();
     const card: Card = getCard();
     const image: MyImage = {
       id: id,

@@ -9,6 +9,7 @@ import StickerListPanel from './StickersPanel/sticker-list-panel';
 import ImagePanel from './ImagePanel/image-panel';
 import TextPanel from './TextPanel/text-panel';
 import { useState } from 'react';
+import TemplatePanel from './TemplatesPanel/template-panel';
 
 enum Panels {
   Select,
@@ -77,7 +78,7 @@ function Sidebar() {
       { open && <div className={ styles.content }>
         { panel === Panels.Select && <div className="sidebar_content_filters">Выделение</div> }
         { panel === Panels.Crop && <div className="sidebar_content_filters">Обрезать</div> }
-        { panel === Panels.Filters && <div className="sidebar_content_filters">Фильтры</div> }
+        { panel === Panels.Filters && <TemplatePanel></TemplatePanel> }
         { panel === Panels.Text && <TextPanel></TextPanel> }
         { panel === Panels.Images && <ImagePanel></ImagePanel> }
         { panel === Panels.Stickers && <StickerListPanel></StickerListPanel> }

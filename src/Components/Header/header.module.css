@@ -14,7 +14,10 @@
 
 .logo {
   height: 50px;
-  margin-right: 20px;
+}
+
+.dropdown {
+  margin-left: 20px;
 }
 
 .undo_arrow {
@@ -37,13 +40,29 @@
   margin-left: 16px;
 }
 
-.undo_arrow, .redo_arrow {
-  fill: hsla(0, 0%, 100%, .8);
-  
+.undo_arrow, .redo_arrow, .layer_button, .delete_button {
   background: none;
   border: none;
 }
 
-.undo_arrow:hover, .redo_arrow:hover {
-  fill: #fff;
+.undo_arrow, .redo_arrow {
+  fill: hsla(0, 0%, 100%, .8);
+}
+
+.layer_buttons {  
+  display: flex;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.layer_button:last-child {
+  margin-left: 5px;
+}
+
+.delete_button {
+  margin-left: 20px;
+}
+
+.icon:hover {
+  fill: hsla(0, 0%, 100%, 1);
 }

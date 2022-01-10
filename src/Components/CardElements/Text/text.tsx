@@ -25,7 +25,7 @@ function Text(props: TextProps) {
 
   return <span ref={ ref } className={ styles.card_object + " " + styles.no_blue_selection + 
   " " + textStyles.text + " " + selection } 
-    style={ style } dangerouslySetInnerHTML={{ __html: text.text }}></span>;
+  style={ style } dangerouslySetInnerHTML={{ __html: text.text }}></span>;
 }
 
 function fetchStyle(text: Txt): React.CSSProperties {
@@ -34,8 +34,8 @@ function fetchStyle(text: Txt): React.CSSProperties {
     marginTop: text.position.y,
     fontSize: text.fontSize,
     fontFamily: text.fontFamily,
-    fontWeight: text.bold ? "bold" : "none",
-    fontStyle: text.italic ? "italic" : "none",
+    fontWeight: text.bold ? "bold" : "normal",
+    fontStyle: text.italic ? "italic" : "normal",
     textDecoration: text.underline ? "underline" : "none",
     color: text.color
   } as React.CSSProperties;

@@ -1,12 +1,12 @@
-import { defaultCard, emptyCard } from './default-card';
+import getEmptyCard from './empty-card';
 import Card from '../Types/type-card';
 import { clearHistory, saveCardState } from '../App/history';
-import { deepCopy } from '../utils/deep-copy';
 
-let card: Card = defaultCard;
+let card: Card = getEmptyCard();
 let editorChangeHandler: Function | null = null;
-let nextId: number = 6;
+let lastId: number = card.objects.length;
 let selectedId: number = -1;
+let editedTextId = -1;
 
 function getCard(): Card {
   return card;
@@ -19,13 +19,13 @@ function setCard(newCard: Card): void {
 }
 
 function createEmptyCard(): void {
-  setCard(deepCopy(emptyCard));
+  setCard(getEmptyCard());
   clearHistory();
 }
 
-function getNextId(): number {
-  incrementNextObjectId();
-  return nextId;
+function nextId(): number {
+  incrementLastId();
+  return lastId;
 }
 
 function getSelectedId(): number {
@@ -44,8 +44,20 @@ function resetSelectedId(): void {
     editorChangeHandler();
 }
 
-function incrementNextObjectId(): void {
-  nextId++;
+function setEditedTextId(id: number): void {
+  editedTextId = id;
+}
+
+function getEditedTextId(): number {
+  return editedTextId;
+}
+
+function resetEditedTextId(): void {
+  editedTextId = -1;
+}
+
+function incrementLastId(): void {
+  lastId++;
 }
 
 function addEditorChangeHandler(handler: Function): void {
@@ -63,6 +75,7 @@ function dispatch(modifyFn: any, payload: any): void {
   setCard(newCard);
 }
 
-export { getCard, setCard, createEmptyCard, getNextId, 
+export { getCard, setCard, createEmptyCard, nextId, 
   setSelectedId, getSelectedId, resetSelectedId,
   dispatch, addEditorChangeHandler }
+export { setEditedTextId, getEditedTextId, resetEditedTextId }

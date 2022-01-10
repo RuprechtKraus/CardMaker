@@ -7,7 +7,9 @@ function useSelect(ref: RefObject<HTMLElement>, id: number): void {
   }
 
   function onMouseClickHandler(e: MouseEvent): void {
-    if ((e.target !== ref.current) && getSelectedId() === id) {
+    const workArea = document.getElementById("work_area");
+    const cardArea = document.getElementById("card");
+    if (e.target !== ref.current && (e.target === workArea || e.target === cardArea ) && getSelectedId() === id) {
       resetSelectedId();
     }
   }

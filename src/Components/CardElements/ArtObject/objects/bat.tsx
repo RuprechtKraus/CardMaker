@@ -1,4 +1,4 @@
-function Bat() {
+function Bat(): JSX.Element {
   return (<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   viewBox="0 0 511.988 511.988" preserveAspectRatio="none" height="100%" width="100%" enableBackground="new 0 0 511.988 511.988" xmlSpace="preserve">
   <path fill="#967ADC" d="M498.977,398.662l-85.326-106.669c-3.281-4.094-9.062-5.203-13.625-2.594L255.983,371.71

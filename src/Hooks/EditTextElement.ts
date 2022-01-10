@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from "react";
 import { deleteObject, setTextContent } from "../App/card-modifiers";
-import { dispatch } from "../Card/card";
+import { dispatch, resetEditedTextId, setEditedTextId } from "../Card/card";
 
 function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
   const saveContent = (): void => {
@@ -15,21 +15,28 @@ function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
     }
   }
 
+  function blur(): void {
+    resetEditedTextId();
+    saveContent();
+  }
+
   function clickedOutside(e: MouseEvent): void {
     if (ref.current && !ref.current.contains(e.target as Node) && 
         ref.current.getAttribute("contenteditable") === "true") {
-      saveContent();
+      blur();
     }
   }
 
   const onDoubleClick = (): void => {
     ref.current?.setAttribute("contenteditable", "true");
     ref.current?.focus();
+    setEditedTextId(id);
   }
 
   const onMouseMove = (e: MouseEvent): void => {
-    if (ref.current?.getAttribute("contenteditable") === "true")
+    if (ref.current?.getAttribute("contenteditable") === "true") {
       e.stopImmediatePropagation();
+    }
   }
 
   const onMouseDown = (): void => {
@@ -43,8 +50,9 @@ function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
   }
 
   const onKeyDown = (e: KeyboardEvent): void => {
-    if (e.code === "Escape" && ref.current?.getAttribute("contenteditable") === "true")
-      saveContent();
+    if (e.code === "Escape" && ref.current?.getAttribute("contenteditable") === "true") {
+      blur();
+    }
   }
 
   useEffect(() => {

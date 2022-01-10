@@ -1,4 +1,4 @@
-function Star() {
+function Star(): JSX.Element {
   return (<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 501.986 501.986" preserveAspectRatio="none" height="100%" width="100%" enableBackground="new 0 0 501.986 501.986" xmlSpace="preserve">
   <g>
     <g>

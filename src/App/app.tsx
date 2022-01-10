@@ -6,9 +6,9 @@ import Card from '../Types/type-card';
 import styles from './app.module.css';
 import { redo, undo } from './history';
 import ImageUploadModal, { Option } from '../Components/ModalWindows/ImageUploadModalWindow/image-upload-modal';
-import { dispatch, getCard } from '../Card/card';
+import { dispatch, getCard, getEditedTextId, getSelectedId } from '../Card/card';
 import { ImageInfo, uploadImage } from '../utils/file-handlers';
-import { setBackground } from './card-modifiers';
+import { deleteObject, setBackground } from './card-modifiers';
 import Size from '../Types/type-size';
 import ImageDownloadModal, { ImageExtension, Quality } from '../Components/ModalWindows/ImageDownloadModalWindow/image-download-modal';
 import { saveAsImage } from '../utils/card-to-image';
@@ -30,10 +30,18 @@ function App(props: AppProps): JSX.Element {
   }
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.ctrlKey && e.code === "KeyZ")
+    if (e.ctrlKey && e.code === "KeyZ") {
       undo();
-    else if (e.ctrlKey && e.code === "KeyY")
+    }
+    else if (e.ctrlKey && e.code === "KeyY") {
       redo();
+    }
+    else if (e.key === "Delete" && getEditedTextId() !== getSelectedId()) {
+      const id: number = getSelectedId();
+      if (id > 0) {
+        dispatch(deleteObject, id);
+      }
+    }
   }
   
   const [importedImage, setImportedImage] = useState<ImageInfo | null>(null);
@@ -85,7 +93,12 @@ function App(props: AppProps): JSX.Element {
   }
   
   const saveImage = async (name: string, extension: ImageExtension, quality: Quality) => {
-    await saveAsImage(name, extension, quality);
+    try {
+      await saveAsImage(name, extension, quality);
+    }
+    catch (error: any) {
+      alert("Whoops! Something went wrong");
+    }
     setDownloadWindow(false);
   }
   
@@ -103,9 +116,9 @@ function App(props: AppProps): JSX.Element {
       imageDownload={ () => setDownloadWindow(true) }></Header>
       <div className={ styles.container }>
         <Sidebar></Sidebar>
-        <div className={ styles.work_area }>
+        <div id="work_area" className={ styles.work_area }>
           <div className={ styles.card_wrapper }>
-            <div style={ cardStyle } className={ styles.card }>
+            <div id="card" style={ cardStyle } className={ styles.card }>
               { objects }
             </div>
           </div>

@@ -1,0 +1,26 @@
+.template_panel {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  
+  padding: 15px 5px 15px 5px;
+}
+
+.filler {
+  width: 80px;
+}
+
+.item_wrapper, .filler {
+  border-radius: 3px;
+  padding: 4px;
+  margin-bottom: 10px;
+}
+
+.item_wrapper:hover {
+  background-color: #333437;
+}
+
+.item {
+  width: 80px;
+  height: 80px;
+}

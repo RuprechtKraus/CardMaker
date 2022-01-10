@@ -40,7 +40,6 @@ async function saveAsImage(filename: string, extension: ImageExtension, quality:
       break;
   }
   const fileType = "image/" + extension;
-  console.log(fileType);
   const fileURL = canvas.toDataURL(fileType, imageQuality);
   const link = document.createElement("a");
   link.href = fileURL;
@@ -133,6 +132,14 @@ function artObjectToStaticMarkup(artObject: ArtObject): string {
       return ReactDOMServer.renderToStaticMarkup(Stickers.Goat());
     case Figures.Cookie:
       return ReactDOMServer.renderToStaticMarkup(Stickers.Cookie());
+    case Figures.SantaHat:
+      return ReactDOMServer.renderToStaticMarkup(Stickers.SantaHat());
+    case Figures.Heart:
+      return ReactDOMServer.renderToStaticMarkup(Stickers.Heart());
+    case Figures.WitchHat:
+      return ReactDOMServer.renderToStaticMarkup(Stickers.WitchHat());
+    case Figures.Ghost:
+      return ReactDOMServer.renderToStaticMarkup(Stickers.Ghost());
     default:
       return "";
   }

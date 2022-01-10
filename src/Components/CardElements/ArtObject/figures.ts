@@ -1,10 +1,12 @@
 enum Figures {
   Star = "Star",
-  Cloud = "Cloud",
   Heart = "Heart",
   Bat = "Bat",
   Goat = "Goat",
-  Cookie = "Cookie"
+  Cookie = "Cookie",
+  SantaHat = "SantaHat",
+  WitchHat = "WitchHat",
+  Ghost = "Ghost"
 }
 
 export default Figures;
