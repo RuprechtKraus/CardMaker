@@ -3,7 +3,7 @@ import snowflake from "./icons/snowflake.png";
 import pumpkin from "./icons/pumpkin.png";
 import photo from "./icons/photo.png";
 import { getTemplate, Template } from "../../../App/Templates/template";
-import { setCard } from "../../../Card/card";
+import { resetId, setCard } from "../../../Card/card";
 import { clearHistory } from "../../../App/history";
 
 function TemplatePanel(): JSX.Element {
@@ -12,6 +12,7 @@ function TemplatePanel(): JSX.Element {
     if (result) {
       const card = getTemplate(template);
       setCard(card);
+      resetId();
       clearHistory();
     }
   }
