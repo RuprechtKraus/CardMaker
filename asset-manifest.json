@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/CardMaker/static/css/main.cf0823e5.chunk.css",
+    "main.js": "/CardMaker/static/js/main.3689635e.chunk.js",
+    "main.js.map": "/CardMaker/static/js/main.3689635e.chunk.js.map",
+    "runtime-main.js": "/CardMaker/static/js/runtime-main.c9306b00.js",
+    "runtime-main.js.map": "/CardMaker/static/js/runtime-main.c9306b00.js.map",
+    "static/js/2.9696888f.chunk.js": "/CardMaker/static/js/2.9696888f.chunk.js",
+    "static/js/2.9696888f.chunk.js.map": "/CardMaker/static/js/2.9696888f.chunk.js.map",
+    "static/js/3.290175f9.chunk.js": "/CardMaker/static/js/3.290175f9.chunk.js",
+    "static/js/3.290175f9.chunk.js.map": "/CardMaker/static/js/3.290175f9.chunk.js.map",
+    "index.html": "/CardMaker/index.html",
+    "static/css/main.cf0823e5.chunk.css.map": "/CardMaker/static/css/main.cf0823e5.chunk.css.map",
+    "static/js/2.9696888f.chunk.js.LICENSE.txt": "/CardMaker/static/js/2.9696888f.chunk.js.LICENSE.txt",
+    "static/media/bat.4c46821e.png": "/CardMaker/static/media/bat.4c46821e.png",
+    "static/media/beautiful.f8adee9c.png": "/CardMaker/static/media/beautiful.f8adee9c.png",
+    "static/media/cookie.5233d014.png": "/CardMaker/static/media/cookie.5233d014.png",
+    "static/media/ghost.f10c7589.png": "/CardMaker/static/media/ghost.f10c7589.png",
+    "static/media/goat.61a926b9.png": "/CardMaker/static/media/goat.61a926b9.png",
+    "static/media/halloween_background.1025f6df.jpeg": "/CardMaker/static/media/halloween_background.1025f6df.jpeg",
+    "static/media/heart.65aee9d0.png": "/CardMaker/static/media/heart.65aee9d0.png",
+    "static/media/logo.e3f2f9df.png": "/CardMaker/static/media/logo.e3f2f9df.png",
+    "static/media/photo.ad3267a5.png": "/CardMaker/static/media/photo.ad3267a5.png",
+    "static/media/pumpkin.c400bd4e.png": "/CardMaker/static/media/pumpkin.c400bd4e.png",
+    "static/media/santa-hat.900ddd87.png": "/CardMaker/static/media/santa-hat.900ddd87.png",
+    "static/media/snow_effect.4ccd9e58.png": "/CardMaker/static/media/snow_effect.4ccd9e58.png",
+    "static/media/snowflake.1c27d48f.png": "/CardMaker/static/media/snowflake.1c27d48f.png",
+    "static/media/star.e5d73e3c.png": "/CardMaker/static/media/star.e5d73e3c.png",
+    "static/media/template-card.3b080021.png": "/CardMaker/static/media/template-card.3b080021.png",
+    "static/media/witch-hat.8bc2f9d0.png": "/CardMaker/static/media/witch-hat.8bc2f9d0.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c9306b00.js",
+    "static/js/2.9696888f.chunk.js",
+    "static/css/main.cf0823e5.chunk.css",
+    "static/js/main.3689635e.chunk.js"
+  ]
+}
