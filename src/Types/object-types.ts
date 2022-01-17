@@ -1,7 +1,7 @@
 enum Types {
-  Image,
-  ArtObject,
-  Text
+  Image = "Image",
+  ArtObject = "ArtObject",
+  Text = "Text"
 }
 
 export default Types;

@@ -3,17 +3,14 @@ import snowflake from "./icons/snowflake.png";
 import pumpkin from "./icons/pumpkin.png";
 import photo from "./icons/photo.png";
 import { getTemplate, Template } from "../../../App/Templates/template";
-import { resetId, setCard } from "../../../Card/card";
-import { clearHistory } from "../../../App/history";
+import { applyCard } from "../../../Card/card";
 
 function TemplatePanel(): JSX.Element {
   function applyTemplate(template: Template): void {
     const result = window.confirm("Это действие удалит все несохраненные данные");
     if (result) {
       const card = getTemplate(template);
-      setCard(card);
-      resetId();
-      clearHistory();
+      applyCard(card);
     }
   }
 

@@ -66,3 +66,7 @@
 .icon:hover {
   fill: hsla(0, 0%, 100%, 1);
 }
+
+.file_input {
+  display: none;
+}

@@ -10,7 +10,7 @@ async function uploadImage(file: File): Promise<ImageInfo> {
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
-  })
+  });
   const img = new Image();
   img.src = await promise as string;
   await img.decode();

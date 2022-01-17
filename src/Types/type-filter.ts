@@ -1,9 +1,9 @@
 enum Filters {
-  None,
-  Red,
-  Green,
-  Blue,
-  Monochrome
+  None = "None",
+  Red = "Red",
+  Green = "Green",
+  Blue = "Blue",
+  Monochrome = "Monochrome"
 }
 
 export default Filters;

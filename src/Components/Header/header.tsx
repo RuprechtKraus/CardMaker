@@ -2,11 +2,12 @@ import styles from './header.module.css';
 import Dropdown from '../Dropdown/dropdown';
 import logo from './logo.png';
 import { redo, undo } from '../../App/history';
-import { createEmptyCard, dispatch, getSelectedId } from '../../Card/card';
+import { createEmptyCard, dispatch, getCard, getSelectedId } from '../../Card/card';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteObject, moveObjectDown, moveObjectUp } from '../../App/card-modifiers';
+import { exportToJSON, importFromJSON } from '../../utils/json';
 
 type HeaderProps = {
   imageUpload: () => void,
@@ -14,6 +15,17 @@ type HeaderProps = {
 }
 
 function Header(props: HeaderProps): JSX.Element {
+  const jsonInput: HTMLInputElement = document.createElement("input");
+  jsonInput.type = "file";
+  jsonInput.accept = ".json";
+  jsonInput.onchange = async function(e: Event) {
+    const result = window.confirm("Это действие удалит все несохраненные данные");
+    const json: File | null | undefined = (e.target as HTMLInputElement).files?.item(0);
+    if (json && result) {
+      await importFromJSON(json);
+    }
+  }
+
   const createNewCard = (): void => {
     const result = window.confirm("Это действие удалит все несохраненные данные");
     if (result) {
@@ -41,6 +53,10 @@ function Header(props: HeaderProps): JSX.Element {
     }
   }
   
+  const onImportJSONClick = (): void => {
+    jsonInput.click();
+  }
+  
   return (
     <header className={ styles.header }>
       <img src={ logo }  className={ styles.logo } alt="logo" />
@@ -49,6 +65,8 @@ function Header(props: HeaderProps): JSX.Element {
           <button onClick={ createNewCard }>Новый файл</button>
           <button onClick={ props.imageUpload }>Импорт</button>
           <button onClick={ props.imageDownload }>Сохранить как</button>
+          <button onClick={ () => exportToJSON(getCard()) }>Экспорт в JSON</button>
+          <button onClick={ onImportJSONClick }>Импорт из JSON</button>
         </Dropdown>
       </div>
       <button title="Отменить" className={ styles.undo_arrow + " " + styles.icon } onClick={ undo }>

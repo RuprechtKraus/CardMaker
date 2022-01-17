@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { createReactElements } from '../utils/object-casting';
 import Header from '../Components/Header/header';
 import Sidebar from '../Components/Sidebar/sidebar';
@@ -20,7 +20,16 @@ type AppProps = {
 function App(props: AppProps): JSX.Element {
   const [uploadWindow, setUploadWindow] = useState<boolean>(false);
   const [downloadWindow, setDownloadWindow] = useState<boolean>(false);
-  const imageInput: React.Ref<HTMLInputElement> = useRef<HTMLInputElement>(null);
+  const imageInput: HTMLInputElement = document.createElement("input");
+  imageInput.type = "file";
+  imageInput.accept = ".jpg,.jpeg,.png";
+  imageInput.onchange = function(e: Event) {
+    const file: File | null | undefined = (e.target as HTMLInputElement).files?.item(0);
+    if (file) {
+      importFile(file);
+    }
+  }
+
   const card: Card = props.card;
   const objects: ReactElement[] = createReactElements(card.objects);
   const cardStyle = {
@@ -45,8 +54,7 @@ function App(props: AppProps): JSX.Element {
   }
   
   const [importedImage, setImportedImage] = useState<ImageInfo | null>(null);
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => importFile(e.currentTarget.files?.item(0));
-  async function importFile(file: File | null | undefined): Promise<void> {
+  async function importFile(file: File): Promise<void> {
     if (!file)
       return;
 
@@ -112,7 +120,7 @@ function App(props: AppProps): JSX.Element {
   
   return (
     <div className={ styles.app }>
-      <Header imageUpload={ () => imageInput.current?.click() } 
+      <Header imageUpload={ () => imageInput.click() } 
       imageDownload={ () => setDownloadWindow(true) }></Header>
       <div className={ styles.container }>
         <Sidebar></Sidebar>
@@ -124,7 +132,6 @@ function App(props: AppProps): JSX.Element {
           </div>
         </div>
       </div>
-      <input ref={ imageInput } onChange={ onInputChange } className={ styles.file_input } type="file" accept=".jpg,.jpeg,.png" />
       { uploadWindow && <ImageUploadModal selectOption={ getOption }></ImageUploadModal> }
       { downloadWindow && <ImageDownloadModal saveImage={ saveImage } 
       closeWindow={ () => setDownloadWindow(false) }></ImageDownloadModal> }

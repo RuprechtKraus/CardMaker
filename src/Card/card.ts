@@ -4,7 +4,7 @@ import { clearHistory, saveCardState } from '../App/history';
 
 let card: Card = getEmptyCard();
 let editorChangeHandler: Function | null = null;
-export let lastId: number = card.objects.length;
+let lastId: number = card.objects.length;
 let selectedId: number = -1;
 let editedTextId = -1;
 
@@ -20,8 +20,18 @@ function setCard(newCard: Card): void {
 
 function createEmptyCard(): void {
   setCard(getEmptyCard());
-  resetId();
   clearHistory();
+  resetId();
+}
+
+/**
+ * applyCard sets new card, clears history and resets id
+ * @param card card to apply
+ */
+function applyCard(card: Card): void {
+  setCard(card);
+  clearHistory();
+  resetId();
 }
 
 function resetId(): void {
@@ -80,7 +90,7 @@ function dispatch(modifyFn: any, payload: any): void {
   setCard(newCard);
 }
 
-export { getCard, setCard, createEmptyCard, nextId, resetId,
-  setSelectedId, getSelectedId, resetSelectedId,
-  dispatch, addEditorChangeHandler }
+export { getCard, setCard, createEmptyCard, applyCard }
+export { nextId, resetId, setSelectedId, getSelectedId, resetSelectedId }
 export { setEditedTextId, getEditedTextId, resetEditedTextId }
+export { dispatch, addEditorChangeHandler }
