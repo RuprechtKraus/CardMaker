@@ -6,12 +6,14 @@ import Card from '../Types/type-card';
 import styles from './app.module.css';
 import { redo, undo } from './history';
 import ImageUploadModal, { Option } from '../Components/ModalWindows/ImageUploadModalWindow/image-upload-modal';
-import { dispatch, getCard, getEditedTextId, getSelectedId } from '../Card/card';
+import { dispatch, getCard, getEditedTextId, getSelectedId, nextId } from '../Card/card';
 import { ImageInfo, uploadImage } from '../utils/file-handlers';
-import { deleteObject, setBackground } from './card-modifiers';
+import { addObject, deleteObject, setBackground } from './card-modifiers';
 import Size from '../Types/type-size';
 import ImageDownloadModal, { ImageExtension, Quality } from '../Components/ModalWindows/ImageDownloadModalWindow/image-download-modal';
 import { saveAsImage } from '../utils/card-to-image';
+import Image from '../Types/type-image';
+import Types from '../Types/object-types';
 
 type AppProps = {
   card: Card;
@@ -117,6 +119,32 @@ function App(props: AppProps): JSX.Element {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
+  
+  document.onpaste = async function(event: ClipboardEvent) {
+    const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
+    const dt = event.clipboardData;
+    const file = dt?.files[0];
+    if (file && allowedFileTypes.includes(file.type)) {
+      const info = await uploadImage(file);
+      const id = nextId();
+      const card = getCard();
+      const image: Image = {
+        id: id,
+        type: Types.Image,
+        data: info.data,
+        position: {
+          x: card.size.width / 2 - (info.height / 6),
+          y: card.size.height / 2 - (info.height / 6)
+        },
+        size: {
+          height: info.height / 3,
+          width: info.width / 3
+        }
+      }
+  
+      dispatch(addObject, image);
+    }
+  }
   
   return (
     <div className={ styles.app }>
