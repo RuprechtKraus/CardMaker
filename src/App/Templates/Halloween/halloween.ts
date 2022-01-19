@@ -3,7 +3,6 @@ import Types from "../../../Types/object-types";
 import ArtObject from "../../../Types/type-art-object";
 import Card from "../../../Types/type-card";
 import Filters from "../../../Types/type-filter";
-import Image from "../../../Types/type-image";
 import Text from "../../../Types/type-text";
 import background from "./halloween_background.jpeg";
 
