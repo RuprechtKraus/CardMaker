@@ -3,11 +3,12 @@ import * as Stickers from './all-objects';
 import ArtObj from '../../../Types/type-art-object';
 import styles from '../card-element.module.css';
 import useDragAndDrop from '../../../Hooks/DragAndDrop';
-import { setArtObjectPosition, setObjectSize } from '../../../App/card-modifiers';
+import { setObjectSize } from '../../../App/card-modifiers';
 import React, { useRef } from 'react';
 import CardObject from '../../../Types/type-card-object';
 import useSelect from '../../../Hooks/SelectElement';
 import useResize from '../../../Hooks/ResizeElement';
+import { setObjectPosition } from '../../../Store/ActionCreators/CardActionCreators';
 
 type ArtObjectProps = {
   artObject: ArtObj,
@@ -24,7 +25,7 @@ function ArtObject(props: ArtObjectProps): JSX.Element {
   const selection = props.selectedId === id ? styles.selected : "";
 
   useResize(ref, dotRef, id, object.size, setObjectSize);
-  useDragAndDrop(ref, id, object.position, setArtObjectPosition);
+  useDragAndDrop(ref, id, object.position, setObjectPosition);
   useSelect(ref, id);
 
   return ( 

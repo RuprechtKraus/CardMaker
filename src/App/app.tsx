@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { createReactElements } from '../utils/object-casting';
 import Header from '../Components/Header/header';
 import Sidebar from '../Components/Sidebar/sidebar';
@@ -14,9 +14,10 @@ import ImageDownloadModal, { ImageExtension, Quality } from '../Components/Modal
 import { saveAsImage } from '../utils/card-to-image';
 import Image from '../Types/type-image';
 import Types from '../Types/object-types';
+import Application from '../Types/type-application';
 
 type AppProps = {
-  card: Card;
+  app: Application;
 }
 
 function App(props: AppProps): JSX.Element {
@@ -32,7 +33,7 @@ function App(props: AppProps): JSX.Element {
     }
   }
 
-  const card: Card = props.card;
+  const card: Card = props.app.card;
   const objects: ReactElement[] = createReactElements(card.objects);
   const cardStyle = {
     width: card.size.width,

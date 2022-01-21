@@ -3,18 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App/app';
 import reportWebVitals from './reportWebVitals';
-import { getCard } from './Card/card';
 import { addEditorChangeHandler } from './Card/card';
+import store from './Store/store';
 
 function render() {
   ReactDOM.render(
     <React.StrictMode>
-      <App card={getCard()}/>
+      <App app={store.getState()}/>
     </React.StrictMode>,
     document.getElementById('root')
   );
 }
 
+store.subscribe(() => render());
 addEditorChangeHandler(render);
 render();
 

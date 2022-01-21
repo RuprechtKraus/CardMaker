@@ -1,6 +1,6 @@
 import { getCard } from "../../Card/card";
 import Card from "../../Types/type-card";
-import { deepCopy } from "../../utils/deep-copy";
+import { deepCopy } from "../../utils/utils";
 import halloweenTemplate from "./Halloween/halloween";
 import photoTemplate from "./PhotoCard/photo-card";
 import winterTempalte from "./Winter/winter";

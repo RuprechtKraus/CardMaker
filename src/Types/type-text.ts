@@ -1,5 +1,5 @@
 import Types from './object-types';
-import CardObject from './type-card-object-base';
+import CardObjectBase from './type-card-object-base';
 
 type Text = {
   readonly text: string;
@@ -10,6 +10,6 @@ type Text = {
   readonly underline: boolean;
   readonly color: string;
   readonly type: Types.Text;
-} & CardObject
+} & CardObjectBase
 
 export default Text;

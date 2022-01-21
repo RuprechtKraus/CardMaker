@@ -1,12 +1,13 @@
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { ChangeEvent, useRef, useState } from "react";
-import { dispatch, getCard, nextId } from '../../../Card/card';
-import { addObject } from "../../../App/card-modifiers"
 import Types from '../../../Types/object-types';
 import Card from '../../../Types/type-card';
 import Text from '../../../Types/type-text';
 import { FormatButton, FormatButtonTypes } from "./format-button";
 import styles from "./text-panel.module.css";
+import store from '../../../Store/store';
+import { generateId } from '../../../utils/utils';
+import { pushObject } from '../../../Store/ActionCreators/CardActionCreators';
 
 const fontFamilies: { value: string, style: string }[] = [
   { value: "Arial", style: styles.arial },
@@ -35,11 +36,11 @@ function TextPanel(): JSX.Element {
     setFontSize(fontSizes[id]);
   }
 
-  const onInsertClick = (): void => {
-    const card: Card = getCard();
+  function createText(): Text {
     const color: string = colorPicker.current ? colorPicker.current.value : "black";
-    const text: Text = {
-      id: nextId(),
+    const card: Card = store.getState().card;
+    return {
+      id: generateId(),
       type: Types.Text,
       text: defaultText,
       color: color,
@@ -57,7 +58,11 @@ function TextPanel(): JSX.Element {
         width: 0
       }
     }
-    dispatch(addObject, text);
+  }
+  
+  const onInsertClick = (): void => {
+    const text: Text = createText();
+    store.dispatch(pushObject(text));
   }
 
   const [fontFamily, setFontFamily] = useState<string>(fontFamilies[0].value);

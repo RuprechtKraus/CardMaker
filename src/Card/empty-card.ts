@@ -1,7 +1,7 @@
 import Card from "../Types/type-card";
 import Filters from "../Types/type-filter";
 import Size from "../Types/type-size";
-import { deepCopy } from "../utils/deep-copy";
+import { deepCopy } from "../utils/utils";
 
 const defaultCardSize: Size = {
   width: 600,

@@ -1,6 +1,6 @@
 import { getCard, setCard } from "../Card/card";
 import Card from "../Types/type-card";
-import { deepCopy } from "../utils/deep-copy";
+import { deepCopy } from "../utils/utils";
 
 const MAX_HISTORY_SIZE: number = 10;
 let undoStack: Card[] = [];

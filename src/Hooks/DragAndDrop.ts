@@ -1,12 +1,12 @@
 import { RefObject, useEffect } from "react";
-import { dispatch } from "../Card/card";
-import Card from "../Types/type-card";
+import AppAction from "../Store/Actions/AppActions";
+import store from "../Store/store";
 import Point from "../Types/type-point";
 
 function useDragAndDrop(
   ref: RefObject<HTMLElement>, id: number, 
   initialPos: Point, 
-  positionSetter: (card: Card, {id, newPos}: { id: number, newPos: Point }) => void
+  positionSetter: (id: number, pos: Point ) => AppAction
 ): void {
   let startPos: Point;
   let newPos: Point;
@@ -38,8 +38,9 @@ function useDragAndDrop(
   }
 
   const onMouseUp = (): void => {
-    if (newPos)
-      dispatch(positionSetter, { id, newPos });
+    if (newPos) {
+      store.dispatch(positionSetter(id, newPos));
+    }
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);
   }
