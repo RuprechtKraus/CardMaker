@@ -150,6 +150,32 @@ function App(props: AppProps): JSX.Element {
     }
   }
   
+  document.onpaste = async function(event: ClipboardEvent) {
+    const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
+    const dt = event.clipboardData;
+    const file = dt?.files[0];
+    if (file && allowedFileTypes.includes(file.type)) {
+      const info = await uploadImage(file);
+      const id = nextId();
+      const card = getCard();
+      const image: Image = {
+        id: id,
+        type: Types.Image,
+        data: info.data,
+        position: {
+          x: card.size.width / 2 - (info.height / 6),
+          y: card.size.height / 2 - (info.height / 6)
+        },
+        size: {
+          height: info.height / 3,
+          width: info.width / 3
+        }
+      }
+  
+      dispatch(addObject, image);
+    }
+  }
+  
   return (
     <div className={ styles.app }>
       <Header imageUpload={ () => imageInput.click() } 
