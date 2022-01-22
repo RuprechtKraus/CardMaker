@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/CardMaker/static/css/main.dddc8fa2.chunk.css",
-    "main.js": "/CardMaker/static/js/main.f39b0807.chunk.js",
-    "main.js.map": "/CardMaker/static/js/main.f39b0807.chunk.js.map",
-    "runtime-main.js": "/CardMaker/static/js/runtime-main.c9306b00.js",
-    "runtime-main.js.map": "/CardMaker/static/js/runtime-main.c9306b00.js.map",
-    "static/js/2.54d51ec8.chunk.js": "/CardMaker/static/js/2.54d51ec8.chunk.js",
-    "static/js/2.54d51ec8.chunk.js.map": "/CardMaker/static/js/2.54d51ec8.chunk.js.map",
-    "static/js/3.290175f9.chunk.js": "/CardMaker/static/js/3.290175f9.chunk.js",
-    "static/js/3.290175f9.chunk.js.map": "/CardMaker/static/js/3.290175f9.chunk.js.map",
+    "main.css": "/CardMaker/static/css/main.4191ee98.chunk.css",
+    "main.js": "/CardMaker/static/js/main.42e1334d.chunk.js",
+    "main.js.map": "/CardMaker/static/js/main.42e1334d.chunk.js.map",
+    "runtime-main.js": "/CardMaker/static/js/runtime-main.a15dfc97.js",
+    "runtime-main.js.map": "/CardMaker/static/js/runtime-main.a15dfc97.js.map",
+    "static/js/2.0f807b40.chunk.js": "/CardMaker/static/js/2.0f807b40.chunk.js",
+    "static/js/2.0f807b40.chunk.js.map": "/CardMaker/static/js/2.0f807b40.chunk.js.map",
+    "static/js/3.ff8625f3.chunk.js": "/CardMaker/static/js/3.ff8625f3.chunk.js",
+    "static/js/3.ff8625f3.chunk.js.map": "/CardMaker/static/js/3.ff8625f3.chunk.js.map",
     "index.html": "/CardMaker/index.html",
-    "static/css/main.dddc8fa2.chunk.css.map": "/CardMaker/static/css/main.dddc8fa2.chunk.css.map",
-    "static/js/2.54d51ec8.chunk.js.LICENSE.txt": "/CardMaker/static/js/2.54d51ec8.chunk.js.LICENSE.txt",
+    "static/css/main.4191ee98.chunk.css.map": "/CardMaker/static/css/main.4191ee98.chunk.css.map",
+    "static/js/2.0f807b40.chunk.js.LICENSE.txt": "/CardMaker/static/js/2.0f807b40.chunk.js.LICENSE.txt",
     "static/media/bat.4c46821e.png": "/CardMaker/static/media/bat.4c46821e.png",
     "static/media/beautiful.f8adee9c.png": "/CardMaker/static/media/beautiful.f8adee9c.png",
     "static/media/cookie.5233d014.png": "/CardMaker/static/media/cookie.5233d014.png",
@@ -30,9 +30,9 @@
     "static/media/witch-hat.8bc2f9d0.png": "/CardMaker/static/media/witch-hat.8bc2f9d0.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.c9306b00.js",
-    "static/js/2.54d51ec8.chunk.js",
-    "static/css/main.dddc8fa2.chunk.css",
-    "static/js/main.f39b0807.chunk.js"
+    "static/js/runtime-main.a15dfc97.js",
+    "static/js/2.0f807b40.chunk.js",
+    "static/css/main.4191ee98.chunk.css",
+    "static/js/main.42e1334d.chunk.js"
   ]
 }
