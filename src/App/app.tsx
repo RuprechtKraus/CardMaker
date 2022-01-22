@@ -156,8 +156,8 @@ function App(props: AppProps): JSX.Element {
     const file = dt?.files[0];
     if (file && allowedFileTypes.includes(file.type)) {
       const info = await uploadImage(file);
-      const id = nextId();
-      const card = getCard();
+      const id = generateId();
+      const card = store.getState().card;
       const image: Image = {
         id: id,
         type: Types.Image,
@@ -172,7 +172,7 @@ function App(props: AppProps): JSX.Element {
         }
       }
   
-      dispatch(addObject, image);
+      store.dispatch(pushObject(image));
     }
   }
   
