@@ -1,6 +1,5 @@
-import { getCard } from "../../Card/card";
+import { getStore } from "../../Store/store";
 import Card from "../../Types/type-card";
-import { deepCopy } from "../../utils/utils";
 import halloweenTemplate from "./Halloween/halloween";
 import photoTemplate from "./PhotoCard/photo-card";
 import winterTempalte from "./Winter/winter";
@@ -14,13 +13,13 @@ enum Template {
 function getTemplate(template: Template): Card {
   switch (template) {
     case Template.NewYear:
-      return deepCopy(winterTempalte);
+      return winterTempalte;
     case Template.Halloween:
-      return deepCopy(halloweenTemplate);
+      return halloweenTemplate;
     case Template.Photo:
-      return deepCopy(photoTemplate);
+      return photoTemplate;
     default:
-      return getCard();
+      return getStore().getState().card;
   }
 }
 

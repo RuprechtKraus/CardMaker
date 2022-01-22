@@ -11,15 +11,16 @@ import SantaIcon from './StickerListIcons/santa-hat.png';
 import HeartIcon from './StickerListIcons/heart.png';
 import WitchIcon from './StickerListIcons/witch-hat.png';
 import GhostIcon from './StickerListIcons/ghost.png';
-import { generateId } from '../../../utils/utils';
-import store from '../../../Store/store';
-import { pushObject } from '../../../Store/ActionCreators/CardActionCreators';
+import { generateId } from '../../../functions/utils';
+import { pushObject } from '../../../Store/ActionCreators/ObjectActionCreators';
+import { getStore } from '../../../Store/store';
 
 const defaultStickerWidth: number = 80;
 const defaultStickerHeight: number = 80;
 
 function StickerListPanel(): JSX.Element {
   function addSticker(stickerType: Figures) {
+    const store = getStore();
     const id: number = generateId();
     const card: Card = store.getState().card;
     const sticker: ArtObject = {

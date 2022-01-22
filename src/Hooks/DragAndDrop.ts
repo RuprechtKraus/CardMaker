@@ -1,13 +1,13 @@
 import { RefObject, useEffect } from "react";
-import AppAction from "../Store/Actions/AppActions";
-import store from "../Store/store";
+import { setObjectPosition } from "../Store/ActionCreators/ObjectActionCreators";
+import { getStore } from "../Store/store";
 import Point from "../Types/type-point";
 
 function useDragAndDrop(
   ref: RefObject<HTMLElement>, id: number, 
   initialPos: Point, 
-  positionSetter: (id: number, pos: Point ) => AppAction
 ): void {
+  const store = getStore();
   let startPos: Point;
   let newPos: Point;
 
@@ -39,7 +39,7 @@ function useDragAndDrop(
 
   const onMouseUp = (): void => {
     if (newPos) {
-      store.dispatch(positionSetter(id, newPos));
+      store.dispatch(setObjectPosition(id, newPos));
     }
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);

@@ -3,14 +3,12 @@ import useDragAndDrop from '../../../Hooks/DragAndDrop';
 import Img from '../../../Types/type-image';
 import styles from '../card-element.module.css';
 import imageStyles from './image.module.css';
-import { setObjectSize } from '../../../App/card-modifiers';
 import useSelect from '../../../Hooks/SelectElement'
 import useResize from '../../../Hooks/ResizeElement';
-import { setObjectPosition } from '../../../Store/ActionCreators/CardActionCreators';
 
 type ImageProps = {
   image: Img,
-  selectedId: number
+  selectedId: number | null
 }
 
 function Image(props: ImageProps) {
@@ -22,8 +20,8 @@ function Image(props: ImageProps) {
   const dotRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
   const selection = props.selectedId === id ? styles.selected : "";
 
-  useResize(ref, dotRef, id, image.size, setObjectSize);
-  useDragAndDrop(ref, id, image.position, setObjectPosition);
+  useResize(ref, dotRef, id, image.size);
+  useDragAndDrop(ref, id, image.position);
   useSelect(ref, id);
 
   return (

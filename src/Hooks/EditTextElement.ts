@@ -1,28 +1,30 @@
 import { RefObject, useEffect } from "react";
-import { deleteObject, setTextContent } from "../App/card-modifiers";
-import { dispatch, resetEditedTextId, setEditedTextId } from "../Card/card";
+import { removeObject, setTextContent } from "../Store/ActionCreators/ObjectActionCreators";
+import { getStore, setEditedTextId } from "../Store/store";
 
 function useEditText(ref: RefObject<HTMLSpanElement>, id: number) {
+  const store = getStore();
+  
   const saveContent = (): void => {
     if (ref.current) {
       ref.current.setAttribute("contenteditable", "false");
       ref.current.blur();
       const newText = ref.current.innerHTML;
       if (newText !== "")
-        dispatch(setTextContent, { id, newText });
+        store.dispatch(setTextContent(id, newText));
       else
-        dispatch(deleteObject, id);
+        store.dispatch(removeObject(id));
     }
   }
 
   function blur(): void {
-    resetEditedTextId();
+    setEditedTextId(null);
     saveContent();
   }
 
   function clickedOutside(e: MouseEvent): void {
     if (ref.current && !ref.current.contains(e.target as Node) && 
-        ref.current.getAttribute("contenteditable") === "true") {
+    ref.current.getAttribute("contenteditable") === "true") {
       blur();
     }
   }

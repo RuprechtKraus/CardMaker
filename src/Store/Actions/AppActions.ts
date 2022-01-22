@@ -1,22 +1,38 @@
 import Card from "../../Types/type-card";
-import { CardModelAction } from "./CardModelActions";
+import CardModelAction from "./CardModelActions";
 
-type IdAction = {
+type SetIdAction = {
   type: "SET_SELECTED_ID",
   id: number
 }
 
-type EditedTextIdAction = {
-  type: "SET_EDITED_TEXT_ID",
-  id: number
+type ResetIdAction = {
+  type: "RESET_SELECTED_ID"
 }
 
-type CardAction = {
+type IdAction = SetIdAction | ResetIdAction
+
+type SetCardAction = {
   type: "SET_CARD",
   card: Card
 }
 
-type AppAction = IdAction | EditedTextIdAction | CardAction | CardModelAction;
+type UndoAction = {
+  type: "UNDO",
+  card: Card
+}
+
+type RedoAction = {
+  type: "REDO",
+  card: Card
+}
+
+type NewCardAction = {
+  type: "NEW_CARD"
+}
+
+type CardAction = SetCardAction | NewCardAction
+type AppAction = IdAction | CardAction | CardModelAction | UndoAction | RedoAction
 
 export default AppAction; 
-export type { IdAction, EditedTextIdAction, CardAction }
+export type { IdAction, CardAction, UndoAction, RedoAction }

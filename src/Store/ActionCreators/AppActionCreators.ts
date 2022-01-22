@@ -1,5 +1,6 @@
+import { popUndo, popRedo } from "../../App/history";
 import Card from "../../Types/type-card";
-import { CardAction, EditedTextIdAction, IdAction } from "../Actions/AppActions";
+import { CardAction, IdAction, RedoAction, UndoAction } from "../Actions/AppActions";
 
 function setSelectedId(id: number): IdAction {
   return {
@@ -8,10 +9,9 @@ function setSelectedId(id: number): IdAction {
   }
 }
 
-function setEditedTextId(id: number): EditedTextIdAction {
+function resetSelectedId(): IdAction {
   return {
-    type: "SET_EDITED_TEXT_ID",
-    id: id
+    type: "RESET_SELECTED_ID"
   }
 }
 
@@ -22,4 +22,24 @@ function setCard(card: Card): CardAction {
   }
 }
 
-export { setSelectedId, setEditedTextId, setCard };
+export function undo(): UndoAction {
+  return {
+    type: "UNDO",
+    card: popUndo()
+  }
+}
+
+export function redo(): RedoAction {
+  return {
+    type: "REDO",
+    card: popRedo()
+  }
+}
+
+function newCard(): CardAction {
+  return {
+    type: "NEW_CARD"
+  }
+}
+
+export { setSelectedId, resetSelectedId, setCard, newCard };

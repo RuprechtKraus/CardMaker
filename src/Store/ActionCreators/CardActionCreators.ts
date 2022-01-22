@@ -1,43 +1,35 @@
-import CardObject from "../../Types/type-card-object";
 import Filters from "../../Types/type-filter";
-import Point from "../../Types/type-point";
 import Size from "../../Types/type-size";
-import { BackgroundAction, FilterAction, PositionAction, PushAction, SizeAction } from "../Actions/CardModelActions";
+import { CardBackgroundAction, CardFilterAction, CardSizeAction, SetBackgroundAndSizeAction } from "../Actions/CardModelActions";
 
-function setBackground(data: string): BackgroundAction {
+
+function setBackground(data: string): CardBackgroundAction {
   return {
     type: "SET_BACKGROUND",
     background: data
   }
 }
 
-function setSize(size: Size): SizeAction {
+function setBackgroundAndSize(data: string, size: Size): SetBackgroundAndSizeAction {
+  return {
+    type: "SET_BACKGROUND_AND_SIZE",
+    background: data,
+    size: size
+  }
+}
+
+function setSize(size: Size): CardSizeAction {
   return {
     type: "SET_SIZE",
     size: size
   }
 }
 
-function setFilter(filter: Filters): FilterAction {
+function setFilter(filter: Filters): CardFilterAction {
   return {
     type: "SET_FILTER",
     filter: filter
   }
 }
 
-function pushObject(object: CardObject): PushAction {
-  return {
-    type: "PUSH_OBJECT",
-    object: object
-  }
-}
-
-function setObjectPosition(id: number, pos: Point): PositionAction {
-  return {
-    type: "SET_OBJECT_POSITION",
-    id: id,
-    position: pos
-  }
-}
-
-export { setBackground, setSize, setFilter, pushObject, setObjectPosition };
+export { setBackground, setBackgroundAndSize, setSize, setFilter };

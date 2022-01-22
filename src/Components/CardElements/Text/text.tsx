@@ -5,11 +5,10 @@ import styles from '../card-element.module.css';
 import textStyles from './text.module.css';
 import useSelect from '../../../Hooks/SelectElement';
 import useEditText from '../../../Hooks/EditTextElement';
-import { setObjectPosition } from '../../../Store/ActionCreators/CardActionCreators';
 
 type TextProps = {
   text: Txt,
-  selectedId: number
+  selectedId: number | null
 }
 
 function Text(props: TextProps) {
@@ -19,7 +18,7 @@ function Text(props: TextProps) {
   const id = text.id;
   const selection = props.selectedId === id ? styles.selected : "";
 
-  useDragAndDrop(ref, id, text.position, setObjectPosition);
+  useDragAndDrop(ref, id, text.position);
   useSelect(ref, id);
   useEditText(ref, id);
 

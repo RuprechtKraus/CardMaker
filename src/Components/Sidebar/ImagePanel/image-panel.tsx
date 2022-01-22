@@ -1,12 +1,12 @@
 import { useRef } from "react";
-import { pushObject } from "../../../Store/ActionCreators/CardActionCreators";
-import store from "../../../Store/store";
+import { pushObject } from "../../../Store/ActionCreators/ObjectActionCreators";
+import { getStore } from "../../../Store/store";
 import Types from "../../../Types/object-types";
 import Card from "../../../Types/type-card";
 import MyImage from "../../../Types/type-image";
 import Size from "../../../Types/type-size";
-import { uploadImage, ImageInfo } from "../../../utils/file-handlers";
-import { generateId } from "../../../utils/utils";
+import { uploadImage, ImageInfo } from "../../../functions/file-handlers";
+import { generateId } from "../../../functions/utils";
 import styles from "./image-panel.module.css";
 
 const shrinkCoefficient: number = 3;
@@ -33,6 +33,7 @@ function ImagePanel(): JSX.Element {
     if (!file) {
       return;
     }
+    const store = getStore();
     const info: ImageInfo = await uploadImage(file);
     const id: number = generateId();
     const card: Card = store.getState().card;

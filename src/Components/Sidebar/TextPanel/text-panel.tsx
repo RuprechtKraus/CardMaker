@@ -5,9 +5,9 @@ import Card from '../../../Types/type-card';
 import Text from '../../../Types/type-text';
 import { FormatButton, FormatButtonTypes } from "./format-button";
 import styles from "./text-panel.module.css";
-import store from '../../../Store/store';
-import { generateId } from '../../../utils/utils';
-import { pushObject } from '../../../Store/ActionCreators/CardActionCreators';
+import { generateId } from '../../../functions/utils';
+import { pushObject } from '../../../Store/ActionCreators/ObjectActionCreators';
+import { getStore } from '../../../Store/store';
 
 const fontFamilies: { value: string, style: string }[] = [
   { value: "Arial", style: styles.arial },
@@ -37,6 +37,7 @@ function TextPanel(): JSX.Element {
   }
 
   function createText(): Text {
+    const store = getStore();
     const color: string = colorPicker.current ? colorPicker.current.value : "black";
     const card: Card = store.getState().card;
     return {
@@ -61,6 +62,7 @@ function TextPanel(): JSX.Element {
   }
   
   const onInsertClick = (): void => {
+    const store = getStore();
     const text: Text = createText();
     store.dispatch(pushObject(text));
   }

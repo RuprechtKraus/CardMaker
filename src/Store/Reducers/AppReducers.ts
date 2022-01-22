@@ -1,43 +1,56 @@
+import CardModelAction, { CardBackgroundAction, CardFilterAction, CardSizeAction } from "../Actions/CardModelActions";
+import { background, filter, size } from "./CardReducers";
+import { initialApp, initialCard } from "../initial-state";
+import { objects } from "./ObjectReducers";
+import AppAction, { IdAction } from "../Actions/AppActions";
 import Application from "../../Types/type-application";
 import Card from "../../Types/type-card";
-import { initialApp, initialCard } from "./../initialState";
-import AppAction, { EditedTextIdAction, IdAction } from "../Actions/AppActions";
-import { BackgroundAction, CardModelAction, FilterAction, ObjectAction, SizeAction } from "../Actions/CardModelActions";
-import { background, filter, objects, size } from "./CardReducers";
+import ObjectAction from "../Actions/ObjectActions";
 
 const selectedId = (state: number | null = null, action: IdAction): number | null => {
-  if (action.type === "SET_SELECTED_ID") {
-    return action.id;
-  }
-  else {
-    return state;
-  }
-}
-
-const editedTextId = (state: number | null = null, action: EditedTextIdAction): number | null => {
-  if (action.type === "SET_EDITED_TEXT_ID") {
-    return action.id;
-  }
-  else {
-    return state;
+  switch (action.type) {
+    case "SET_SELECTED_ID":
+      return action.id;
+    case "RESET_SELECTED_ID":
+      return null;
+    default:
+      return state
   }
 }
 
 const card = (state: Card = initialCard, action: CardModelAction): Card => {
   return {
-    background: background(state.background, action as BackgroundAction),
-    size: size(state.size, action as SizeAction),
+    background: background(state.background, action as CardBackgroundAction),
+    size: size(state.size, action as CardSizeAction),
     objects: objects(state.objects, action as ObjectAction),
-    filter: filter(state.filter, action as FilterAction)
+    filter: filter(state.filter, action as CardFilterAction)
   }
 }
 
 const app = (state: Application = initialApp, action: AppAction): Application => {
-  return {
-    seletedId: selectedId(state.seletedId, action as IdAction),
-    editedTextId: editedTextId(state.editedTextId, action as EditedTextIdAction),
-    card: card(state.card, action as CardModelAction)
-  }
+  switch (action.type) {
+    case "NEW_CARD":
+      return {
+        selectedId: null,
+        card: initialCard
+      }
+    case "SET_CARD":
+      return {
+        selectedId: null,
+        card: action.card
+      }
+    case "UNDO":
+    case "REDO":
+      return {
+        selectedId: state.selectedId,
+        card: action.card
+      }
+    default:
+      return {
+        selectedId: selectedId(state.selectedId, action as IdAction),
+        card: card(state.card, action as CardModelAction)
+      }
+    }
 }
 
-export { app, selectedId, editedTextId };
+export { app, selectedId };

@@ -1,4 +1,5 @@
-import { applyCard } from "../Card/card";
+import { setCard } from "../Store/ActionCreators/AppActionCreators";
+import { getStore } from "../Store/store";
 import Card from "../Types/type-card";
 
 function exportToJSON(card: Card): void {
@@ -13,7 +14,8 @@ function exportToJSON(card: Card): void {
 
 async function importFromJSON(json: File): Promise<void> {
   const card: Card = JSON.parse(await json.text()) as Card;
-  applyCard(card);
+  const store = getStore();
+  store.dispatch(setCard(card));
 }
 
 export { exportToJSON, importFromJSON };

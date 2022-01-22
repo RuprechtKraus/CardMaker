@@ -1,8 +1,7 @@
 import Card from "./type-card";
 
 type Application = Readonly<{
-  seletedId: number | null;
-  editedTextId: number | null;
+  selectedId: number | null;
   card: Card;
 }>
 

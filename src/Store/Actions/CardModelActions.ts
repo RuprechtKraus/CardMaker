@@ -1,40 +1,32 @@
-import CardObject from "../../Types/type-card-object";
 import Filters from "../../Types/type-filter";
-import Point from "../../Types/type-point";
 import Size from "../../Types/type-size";
+import ObjectAction from "./ObjectActions";
 
-type BackgroundAction = {
+
+type SetBackgroundAction = {
   type: "SET_BACKGROUND",
   background: string
 }
 
-type SizeAction = {
+type SetBackgroundAndSizeAction = {
+  type: "SET_BACKGROUND_AND_SIZE",
+  background: string,
+  size: Size
+}
+
+type SetSizeAction = {
   type: "SET_SIZE",
   size: Size
 }
 
-type FilterAction = {
+type CardFilterAction = {
   type: "SET_FILTER",
   filter: Filters
 }
 
-type PushAction = {
-  type: "PUSH_OBJECT",
-  object: CardObject
-}
+type CardBackgroundAction = SetBackgroundAction | SetBackgroundAndSizeAction
+type CardSizeAction = SetSizeAction | SetBackgroundAndSizeAction
+type CardModelAction = CardSizeAction | CardBackgroundAction | CardFilterAction | ObjectAction | CardBackgroundAction
 
-type RemoveAction = {
-  type: "REMOVE_OBJECT",
-  id: number
-}
-
-type PositionAction = {
-  type: "SET_OBJECT_POSITION",
-  id: number,
-  position: Point
-}
-
-type ObjectAction = PushAction | RemoveAction | PositionAction
-type CardModelAction = SizeAction | BackgroundAction | FilterAction | ObjectAction
-
-export type { CardModelAction, SizeAction, BackgroundAction, FilterAction, ObjectAction, PushAction, RemoveAction, PositionAction };
+export default CardModelAction;
+export type { CardSizeAction, CardBackgroundAction, CardFilterAction, SetBackgroundAction, SetBackgroundAndSizeAction };

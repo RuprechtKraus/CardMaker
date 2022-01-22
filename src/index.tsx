@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App/app';
 import reportWebVitals from './reportWebVitals';
-import { addEditorChangeHandler } from './Card/card';
-import store from './Store/store';
+import { getStore } from './Store/store';
+
+const store = getStore();
 
 function render() {
   ReactDOM.render(
@@ -15,8 +16,9 @@ function render() {
   );
 }
 
-store.subscribe(() => render());
-addEditorChangeHandler(render);
+store.subscribe(() => {
+  render();
+});
 render();
 
 // If you want to start measuring performance in your app, pass a function

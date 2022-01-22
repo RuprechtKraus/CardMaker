@@ -1,11 +1,9 @@
-import CardObject from "../../Types/type-card-object";
+import { CardBackgroundAction, CardFilterAction, CardSizeAction } from "../Actions/CardModelActions";
 import Filters from "../../Types/type-filter";
 import Size from "../../Types/type-size";
-import { setObjectFields } from "../../utils/utils";
-import { BackgroundAction, FilterAction, ObjectAction, SizeAction } from "../Actions/CardModelActions";
 
-const background = (state: string = "", action: BackgroundAction): string => {
-  if (action.type === "SET_BACKGROUND") {
+const background = (state: string = "", action: CardBackgroundAction): string => {
+  if (action.type === "SET_BACKGROUND" || action.type === "SET_BACKGROUND_AND_SIZE") {
     return action.background;
   }
   else {
@@ -13,8 +11,8 @@ const background = (state: string = "", action: BackgroundAction): string => {
   }
 }
 
-const size = (state: Size = { width: 600, height: 800 }, action: SizeAction): Size => {
-  if (action.type === "SET_SIZE") {
+const size = (state: Size = { width: 600, height: 800 }, action: CardSizeAction): Size => {
+  if (action.type === "SET_SIZE" || action.type === "SET_BACKGROUND_AND_SIZE") {
     return action.size;
   }
   else {
@@ -22,7 +20,7 @@ const size = (state: Size = { width: 600, height: 800 }, action: SizeAction): Si
   }
 }
 
-const filter = (state: Filters = Filters.None, action: FilterAction): Filters => {
+const filter = (state: Filters = Filters.None, action: CardFilterAction): Filters => {
   if (action.type === "SET_FILTER") {
     return action.filter;
   }
@@ -31,20 +29,4 @@ const filter = (state: Filters = Filters.None, action: FilterAction): Filters =>
   }
 }
 
-const objects = (state: CardObject[], action: ObjectAction): CardObject[] => {
-  switch (action.type) {
-    case "PUSH_OBJECT":
-      return [
-        ...state,
-        action.object
-      ];
-    case "REMOVE_OBJECT":
-      return state;
-    case "SET_OBJECT_POSITION":
-      return setObjectFields(state, action.id, { position: action.position });
-    default:
-      return state;
-  }
-}
-
-export { background, size, filter, objects };
+export { background, size, filter };
