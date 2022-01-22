@@ -1,37 +1,50 @@
 import { useRef } from "react";
-import { addObject } from "../../../App/card-modifiers";
-import { dispatch, getCard, nextId } from "../../../Card/card";
+import { pushObject } from "../../../Store/ActionCreators/ObjectActionCreators";
+import { getStore } from "../../../Store/store";
 import Types from "../../../Types/object-types";
 import Card from "../../../Types/type-card";
 import MyImage from "../../../Types/type-image";
-import { uploadImage, ImageInfo } from "../../../utils/file-handlers";
+import Size from "../../../Types/type-size";
+import { uploadImage, ImageInfo } from "../../../functions/file-handlers";
+import { generateId } from "../../../functions/utils";
 import styles from "./image-panel.module.css";
+
+const shrinkCoefficient: number = 3;
+const shiftCoefficient: number = 6;
+
+function center(cardSize: Size, imageSize: Size) {
+  return {
+    x: cardSize.width / 2 - (imageSize.width / shiftCoefficient),
+    y: cardSize.height / 2 - (imageSize.height / shiftCoefficient)
+  }
+}
+
+function shrink(imageSize: Size) {
+  return {
+    width: imageSize.width / shrinkCoefficient,
+    height: imageSize.height / shrinkCoefficient
+  }
+}
 
 function ImagePanel(): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => importFile(e.currentTarget.files?.item(0));
   async function importFile(file: File | null | undefined): Promise<void> {
-    if (!file)
+    if (!file) {
       return;
-
+    }
+    const store = getStore();
     const info: ImageInfo = await uploadImage(file);
-    const id: number = nextId();
-    const card: Card = getCard();
+    const id: number = generateId();
+    const card: Card = store.getState().card;
     const image: MyImage = {
       id: id,
       type: Types.Image,
       data: info.data,
-      position: {
-        x: card.size.width / 2 - (info.height / 6),
-        y: card.size.height / 2 - (info.height / 6)
-      },
-      size: {
-        height: info.height / 3,
-        width: info.width / 3
-      }
+      position: center(card.size, { width: info.width, height: info.height }),
+      size: shrink({ width: info.width, height: info.height })
     }
-
-    dispatch(addObject, image);
+    store.dispatch(pushObject(image));
   }
 
   return <div className={ styles.image_panel }>

@@ -1,4 +1,3 @@
-import { getCard } from "../Card/card"
 import * as Stickers from '../Components/CardElements/ArtObject/all-objects';
 import Figures from "../Components/CardElements/ArtObject/figures";
 import Types from "../Types/object-types";
@@ -9,9 +8,11 @@ import ImageObject from "../Types/type-image";
 import ReactDOMServer from 'react-dom/server';
 import Text from "../Types/type-text";
 import { ImageExtension, Quality } from "../Components/ModalWindows/ImageDownloadModalWindow/image-download-modal";
+import { getStore } from "../Store/store";
 
 async function saveAsImage(filename: string, extension: ImageExtension, quality: Quality): Promise<void> {
-  const card: Card = getCard();
+  const store = getStore();
+  const card: Card = store.getState().card;
   const objects: CardObject[] = card.objects;
 
   const canvas: HTMLCanvasElement = document.createElement("canvas");
@@ -39,6 +40,7 @@ async function saveAsImage(filename: string, extension: ImageExtension, quality:
       imageQuality = 0.1;
       break;
   }
+
   const fileType = "image/" + extension;
   const fileURL = canvas.toDataURL(fileType, imageQuality);
   const link = document.createElement("a");
@@ -56,7 +58,8 @@ async function drawBackground(ctx: CanvasRenderingContext2D, data: string): Prom
     ctx?.drawImage(img, 0, 0);
   }
   else {
-    const card: Card = getCard();
+    const store = getStore();
+    const card: Card = store.getState().card;
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, card.size.width, card.size.height);
   }

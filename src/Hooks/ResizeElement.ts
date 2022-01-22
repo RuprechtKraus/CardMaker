@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from "react";
-import { dispatch } from "../Card/card";
-import Card from "../Types/type-card";
+import { setObjectSize } from "../Store/ActionCreators/ObjectActionCreators";
+import { getStore } from "../Store/store";
 import Point from "../Types/type-point";
 import Size from "../Types/type-size";
 
@@ -8,9 +8,9 @@ const MIN_SIZE = 50;
 
 function useResize(
   ref: RefObject<HTMLElement>, dotRef: RefObject<HTMLElement>,
-  id: number, initialSize: Size,
-  sizeSetter: (card: Card, { id, newSize }: { id: number, newSize: Size }) => void
+  id: number, initialSize: Size
 ): void {
+  const store = getStore();
   let startPos: Point;
   let newSize: Size;
 
@@ -66,7 +66,7 @@ function useResize(
 
   const onMouseUp = (): void => {
     if (newSize)
-      dispatch(sizeSetter, { id, newSize });
+      store.dispatch(setObjectSize(id, newSize));
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);
   }

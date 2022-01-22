@@ -1,6 +1,10 @@
 import Card from "../Types/type-card";
 
-function deepCopy(card: Card): Card {
+export function generateId(): number {
+  return Date.now() + Math.floor(Math.random() * 10000);
+}
+
+export function deepCopy(card: Card): Card {
   const copy: Card = {
     background: card.background,
     size: card.size,
@@ -8,6 +12,4 @@ function deepCopy(card: Card): Card {
     filter: card.filter
   }
   return copy;
-}
-
-export { deepCopy };
+} 

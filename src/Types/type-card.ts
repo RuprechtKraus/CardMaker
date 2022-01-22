@@ -1,4 +1,3 @@
-import Image from './type-image'
 import Size from './type-size'
 import Filter from './type-filter'
 import CardObject from './type-card-object'

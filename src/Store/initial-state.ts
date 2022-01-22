@@ -1,22 +1,23 @@
+import Application from "../Types/type-application";
 import Card from "../Types/type-card";
 import Filters from "../Types/type-filter";
 import Size from "../Types/type-size";
-import { deepCopy } from "../utils/deep-copy";
 
 const defaultCardSize: Size = {
   width: 600,
   height: 800,
 }
 
-const emptyCard: Card = {
+const initialCard: Card = {
   background: "",
   size: defaultCardSize,
   objects: [],
   filter: Filters.None
 }
 
-function getEmptyCard(): Card {
-  return deepCopy(emptyCard);
+const initialApp: Application = {
+  selectedId: null,
+  card: initialCard,
 }
 
-export default getEmptyCard;
+export { initialApp, initialCard };

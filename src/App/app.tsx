@@ -1,25 +1,29 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import { createReactElements } from '../utils/object-casting';
+import { ReactElement, useEffect, useState } from 'react';
+import { createReactElements } from './object-creating';
+import { ImageInfo, uploadImage } from '../functions/file-handlers';
+import { getEditedTextId, getSelectedId, getStore } from '../Store/store';
+import { pushObject, removeObject } from '../Store/ActionCreators/ObjectActionCreators';
+import { redo, resetSelectedId, undo } from '../Store/ActionCreators/AppActionCreators';
+import { setBackground, setBackgroundAndSize } from '../Store/ActionCreators/CardActionCreators';
+import { saveAsImage } from '../functions/card-to-image';
+import { generateId } from '../functions/utils';
+import ImageDownloadModal, { ImageExtension, Quality } from '../Components/ModalWindows/ImageDownloadModalWindow/image-download-modal';
+import ImageUploadModal, { Option } from '../Components/ModalWindows/ImageUploadModalWindow/image-upload-modal';
 import Header from '../Components/Header/header';
 import Sidebar from '../Components/Sidebar/sidebar';
 import Card from '../Types/type-card';
 import styles from './app.module.css';
-import { redo, undo } from './history';
-import ImageUploadModal, { Option } from '../Components/ModalWindows/ImageUploadModalWindow/image-upload-modal';
-import { dispatch, getCard, nextId, getEditedTextId, getSelectedId } from '../Card/card';
-import { ImageInfo, uploadImage } from '../utils/file-handlers';
-import { addObject, deleteObject, setBackground } from './card-modifiers';
 import Size from '../Types/type-size';
-import ImageDownloadModal, { ImageExtension, Quality } from '../Components/ModalWindows/ImageDownloadModalWindow/image-download-modal';
-import { saveAsImage } from '../utils/card-to-image';
 import Image from '../Types/type-image';
 import Types from '../Types/object-types';
+import Application from '../Types/type-application';
 
 type AppProps = {
-  card: Card;
+  app: Application;
 }
 
 function App(props: AppProps): JSX.Element {
+  const store = getStore();
   const [uploadWindow, setUploadWindow] = useState<boolean>(false);
   const [downloadWindow, setDownloadWindow] = useState<boolean>(false);
   const imageInput: HTMLInputElement = document.createElement("input");
@@ -32,27 +36,12 @@ function App(props: AppProps): JSX.Element {
     }
   }
 
-  const card: Card = props.card;
+  const card: Card = props.app.card;
   const objects: ReactElement[] = createReactElements(card.objects);
   const cardStyle = {
     width: card.size.width,
     height: card.size.height,
     backgroundImage: "url(" + card.background + ")"
-  }
-
-  const onKeyDown = (e: KeyboardEvent) => {
-    if (e.ctrlKey && e.code === "KeyZ") {
-      undo();
-    }
-    else if (e.ctrlKey && e.code === "KeyY") {
-      redo();
-    }
-    else if (e.key === "Delete" && getEditedTextId() !== getSelectedId()) {
-      const id: number = getSelectedId();
-      if (id > 0) {
-        dispatch(deleteObject, id);
-      }
-    }
   }
   
   const [importedImage, setImportedImage] = useState<ImageInfo | null>(null);
@@ -60,7 +49,7 @@ function App(props: AppProps): JSX.Element {
     if (!file)
       return;
 
-    const card: Card = getCard();
+    const card: Card = store.getState().card;
     const info: ImageInfo = await uploadImage(file);
 
     if (info.width > card.size.width || info.height > card.size.height) {
@@ -69,8 +58,7 @@ function App(props: AppProps): JSX.Element {
     }
     else {
       const data: string = info.data;
-      const size: Size = getCard().size;
-      dispatch(setBackground, { data, size });
+      store.dispatch(setBackground(data));
     }
   }
 
@@ -85,13 +73,13 @@ function App(props: AppProps): JSX.Element {
             height: image.height,
             width: image.width
           };
-          dispatch(setBackground, { data, size });
+          store.dispatch(setBackgroundAndSize(data, size));
         }
         break;
       case Option.Crop:
         if (image) {
           const data: string = image.data;
-          dispatch(setBackground, { data });
+          store.dispatch(setBackground(data));
         }
         break;
       case Option.Close:
@@ -113,12 +101,54 @@ function App(props: AppProps): JSX.Element {
   }
   
   useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.code === "KeyZ") {
+        store.dispatch(undo());
+      }
+      else if (e.ctrlKey && e.code === "KeyY") {
+        store.dispatch(redo());
+      }
+      else if (e.key === "Delete" && getEditedTextId() !== getSelectedId()) {
+        const id: number | null = getSelectedId();
+        if (id) {
+          store.dispatch(removeObject(id));
+          store.dispatch(resetSelectedId());
+        }
+      }
+    }
+    
     document.title = "CardMaker";
     document.addEventListener("keydown", onKeyDown);
     return() => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, []);
+  }, [store]);
+  
+  document.onpaste = async function(event: ClipboardEvent) {
+    const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
+    const dt = event.clipboardData;
+    const file = dt?.files[0];
+    if (file && allowedFileTypes.includes(file.type)) {
+      const info = await uploadImage(file);
+      const id = generateId();
+      const card = store.getState().card;
+      const image: Image = {
+        id: id,
+        type: Types.Image,
+        data: info.data,
+        position: {
+          x: card.size.width / 2 - (info.height / 6),
+          y: card.size.height / 2 - (info.height / 6)
+        },
+        size: {
+          height: info.height / 3,
+          width: info.width / 3
+        }
+      }
+  
+      store.dispatch(pushObject(image));
+    }
+  }
   
   document.onpaste = async function(event: ClipboardEvent) {
     const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];

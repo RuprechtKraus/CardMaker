@@ -3,13 +3,12 @@ import useDragAndDrop from '../../../Hooks/DragAndDrop';
 import Txt from '../../../Types/type-text';
 import styles from '../card-element.module.css';
 import textStyles from './text.module.css';
-import { setTextPosition } from '../../../App/card-modifiers';
 import useSelect from '../../../Hooks/SelectElement';
 import useEditText from '../../../Hooks/EditTextElement';
 
 type TextProps = {
   text: Txt,
-  selectedId: number
+  selectedId: number | null
 }
 
 function Text(props: TextProps) {
@@ -19,7 +18,7 @@ function Text(props: TextProps) {
   const id = text.id;
   const selection = props.selectedId === id ? styles.selected : "";
 
-  useDragAndDrop(ref, id, text.position, setTextPosition);
+  useDragAndDrop(ref, id, text.position);
   useSelect(ref, id);
   useEditText(ref, id);
 
