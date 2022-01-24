@@ -1,8 +1,6 @@
 import styles from './sticker-list-panel.module.css';
 import Card from '../../../Types/type-card';
-import ArtObject from '../../../Types/type-art-object';
 import Figures from '../../CardElements/ArtObject/figures';
-import Types from '../../../Types/object-types';
 import BatIcon from './StickerListIcons/bat.png';
 import StarIcon from './StickerListIcons/star.png';
 import CookieIcon from './StickerListIcons/cookie.png';
@@ -11,33 +9,20 @@ import SantaIcon from './StickerListIcons/santa-hat.png';
 import HeartIcon from './StickerListIcons/heart.png';
 import WitchIcon from './StickerListIcons/witch-hat.png';
 import GhostIcon from './StickerListIcons/ghost.png';
-import { generateId } from '../../../functions/utils';
-import { pushObject } from '../../../Store/ActionCreators/ObjectActionCreators';
+import Point from '../../../Types/type-point';
+import { createArtObject } from '../../../Store/ActionCreators/ObjectActionCreators';
 import { getStore } from '../../../Store/store';
-
-const defaultStickerWidth: number = 80;
-const defaultStickerHeight: number = 80;
+import { defaultStickerHeight, defaultStickerWidth } from '../../../Constants/object-constants';
 
 function StickerListPanel(): JSX.Element {
   function addSticker(stickerType: Figures) {
     const store = getStore();
-    const id: number = generateId();
     const card: Card = store.getState().card;
-    const sticker: ArtObject = {
-      id: id,
-      type: Types.ArtObject,
-      figure: stickerType,
-      position: {
-        x: card.size.width / 2 - defaultStickerWidth / 2,
-        y: card.size.height / 2 - defaultStickerHeight / 2
-      },
-      size: {
-        width: defaultStickerWidth,
-        height: defaultStickerHeight
-      }
+    const position: Point = {
+      x: card.size.width / 2 - defaultStickerWidth / 2,
+      y: card.size.height / 2 - defaultStickerHeight / 2
     }
-
-    store.dispatch(pushObject(sticker));
+    store.dispatch(createArtObject(stickerType, position));
   }
 
   const stickersPerRow: number = 3;

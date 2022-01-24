@@ -1,13 +1,11 @@
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { ChangeEvent, useRef, useState } from "react";
-import Types from '../../../Types/object-types';
 import Card from '../../../Types/type-card';
-import Text from '../../../Types/type-text';
 import { FormatButton, FormatButtonTypes } from "./format-button";
 import styles from "./text-panel.module.css";
-import { generateId } from '../../../functions/utils';
-import { pushObject } from '../../../Store/ActionCreators/ObjectActionCreators';
+import { createTextObject } from '../../../Store/ActionCreators/ObjectActionCreators';
 import { getStore } from '../../../Store/store';
+import Point from '../../../Types/type-point';
 
 const fontFamilies: { value: string, style: string }[] = [
   { value: "Arial", style: styles.arial },
@@ -16,7 +14,6 @@ const fontFamilies: { value: string, style: string }[] = [
   { value: "Comic Sans MS", style: styles.comic_sans_ms }
 ];
 const fontSizes: number[] = [ 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 ];
-const defaultText: string = "Sample Text";
 
 function TextPanel(): JSX.Element {  
   const fontFamilyOptions: JSX.Element[] = fontFamilies.map((element, index) => {
@@ -35,36 +32,16 @@ function TextPanel(): JSX.Element {
   const onFontSizeChanged = (id: number): void => {
     setFontSize(fontSizes[id]);
   }
-
-  function createText(): Text {
-    const store = getStore();
-    const color: string = colorPicker.current ? colorPicker.current.value : "black";
-    const card: Card = store.getState().card;
-    return {
-      id: generateId(),
-      type: Types.Text,
-      text: defaultText,
-      color: color,
-      fontFamily: fontFamily,
-      fontSize: fontSize,
-      bold: bold,
-      italic: italic,
-      underline: underline,
-      position: {
-        x: card.size.width / 2,
-        y: card.size.height / 2
-      },
-      size: {
-        height: 0,
-        width: 0
-      }
-    }
-  }
   
   const onInsertClick = (): void => {
     const store = getStore();
-    const text: Text = createText();
-    store.dispatch(pushObject(text));
+    const card: Card = store.getState().card;
+    const color: string = colorPicker.current ? colorPicker.current.value : "black";
+    const position: Point = {
+      x: card.size.width / 2,
+      y: card.size.height / 2
+    };
+    store.dispatch(createTextObject(fontFamily, fontSize, color, bold, italic, underline, position));
   }
 
   const [fontFamily, setFontFamily] = useState<string>(fontFamilies[0].value);

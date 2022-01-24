@@ -2,11 +2,11 @@ import { ReactElement, useEffect, useState } from 'react';
 import { createReactElements } from './object-creating';
 import { ImageInfo, uploadImage } from '../functions/file-handlers';
 import { getEditedTextId, getSelectedId, getStore } from '../Store/store';
-import { pushObject, removeObject } from '../Store/ActionCreators/ObjectActionCreators';
+import { createImageObject, removeObject } from '../Store/ActionCreators/ObjectActionCreators';
 import { redo, resetSelectedId, undo } from '../Store/ActionCreators/AppActionCreators';
 import { setBackground, setBackgroundAndSize } from '../Store/ActionCreators/CardActionCreators';
 import { saveAsImage } from '../functions/card-to-image';
-import { generateId } from '../functions/utils';
+import { centerImage } from '../functions/utils';
 import ImageDownloadModal, { ImageExtension, Quality } from '../Components/ModalWindows/ImageDownloadModalWindow/image-download-modal';
 import ImageUploadModal, { Option } from '../Components/ModalWindows/ImageUploadModalWindow/image-upload-modal';
 import Header from '../Components/Header/header';
@@ -14,9 +14,8 @@ import Sidebar from '../Components/Sidebar/sidebar';
 import Card from '../Types/type-card';
 import styles from './app.module.css';
 import Size from '../Types/type-size';
-import Image from '../Types/type-image';
-import Types from '../Types/object-types';
 import Application from '../Types/type-application';
+import Point from '../Types/type-point';
 
 type AppProps = {
   app: Application;
@@ -129,50 +128,11 @@ function App(props: AppProps): JSX.Element {
     const dt = event.clipboardData;
     const file = dt?.files[0];
     if (file && allowedFileTypes.includes(file.type)) {
-      const info = await uploadImage(file);
-      const id = generateId();
-      const card = store.getState().card;
-      const image: Image = {
-        id: id,
-        type: Types.Image,
-        data: info.data,
-        position: {
-          x: card.size.width / 2 - (info.height / 6),
-          y: card.size.height / 2 - (info.height / 6)
-        },
-        size: {
-          height: info.height / 3,
-          width: info.width / 3
-        }
-      }
-  
-      store.dispatch(pushObject(image));
-    }
-  }
-  
-  document.onpaste = async function(event: ClipboardEvent) {
-    const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
-    const dt = event.clipboardData;
-    const file = dt?.files[0];
-    if (file && allowedFileTypes.includes(file.type)) {
-      const info = await uploadImage(file);
-      const id = generateId();
-      const card = store.getState().card;
-      const image: Image = {
-        id: id,
-        type: Types.Image,
-        data: info.data,
-        position: {
-          x: card.size.width / 2 - (info.height / 6),
-          y: card.size.height / 2 - (info.height / 6)
-        },
-        size: {
-          height: info.height / 3,
-          width: info.width / 3
-        }
-      }
-  
-      store.dispatch(pushObject(image));
+      const info: ImageInfo = await uploadImage(file);
+      const store = getStore();
+      const card: Card = store.getState().card;
+      const position: Point = centerImage(card.size, { width: info.width, height: info.height });
+      store.dispatch(createImageObject(info.data, position, { width: info.width, height: info.height }));
     }
   }
   

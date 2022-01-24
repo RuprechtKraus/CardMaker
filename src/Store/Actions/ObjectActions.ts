@@ -1,10 +1,29 @@
-import CardObject from "../../Types/type-card-object"
+import Figures from "../../Components/CardElements/ArtObject/figures"
 import Point from "../../Types/type-point"
 import Size from "../../Types/type-size"
 
-type ObjectPushAction = {
-  type: "PUSH_OBJECT",
-  object: CardObject
+type CreateArtObjectAction = {
+  type: "CREATE_ART_OBJECT",
+  figure: Figures,
+  position: Point
+}
+
+type CreateImageObjectAaction = {
+  type: "CREATE_IMAGE_OBJECT",
+  data: string,
+  position: Point,
+  size: Size
+}
+
+type CreateTextObjectAction = {
+  type: "CREATE_TEXT_OBJECT",
+  fontFamily: string, 
+  fontSize: number, 
+  color: string, 
+  bold: boolean, 
+  italic: boolean, 
+  underline: boolean, 
+  position: Point
 }
 
 type ObjectRemoveAction = {
@@ -40,7 +59,7 @@ type ObjectMoveDownAction = {
   id: number
 }
 
-type ObjectAction = ObjectPushAction | ObjectRemoveAction | ObjectPositionAction | ObjectSizeAction | ObjectTextAction
-  | ObjectMoveUpAction | ObjectMoveDownAction
+type ObjectAction = ObjectRemoveAction | ObjectPositionAction | ObjectSizeAction | ObjectTextAction
+  | ObjectMoveUpAction | ObjectMoveDownAction | CreateArtObjectAction | CreateImageObjectAaction | CreateTextObjectAction
 
 export default ObjectAction;

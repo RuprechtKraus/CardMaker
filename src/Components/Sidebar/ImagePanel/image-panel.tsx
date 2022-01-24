@@ -1,30 +1,11 @@
-import { useRef } from "react";
-import { pushObject } from "../../../Store/ActionCreators/ObjectActionCreators";
-import { getStore } from "../../../Store/store";
-import Types from "../../../Types/object-types";
-import Card from "../../../Types/type-card";
-import MyImage from "../../../Types/type-image";
-import Size from "../../../Types/type-size";
+import { createImageObject } from "../../../Store/ActionCreators/ObjectActionCreators";
 import { uploadImage, ImageInfo } from "../../../functions/file-handlers";
-import { generateId } from "../../../functions/utils";
+import { getStore } from "../../../Store/store";
+import { useRef } from "react";
+import Card from "../../../Types/type-card";
 import styles from "./image-panel.module.css";
-
-const shrinkCoefficient: number = 3;
-const shiftCoefficient: number = 6;
-
-function center(cardSize: Size, imageSize: Size) {
-  return {
-    x: cardSize.width / 2 - (imageSize.width / shiftCoefficient),
-    y: cardSize.height / 2 - (imageSize.height / shiftCoefficient)
-  }
-}
-
-function shrink(imageSize: Size) {
-  return {
-    width: imageSize.width / shrinkCoefficient,
-    height: imageSize.height / shrinkCoefficient
-  }
-}
+import Point from "../../../Types/type-point";
+import { centerImage } from "../../../functions/utils";
 
 function ImagePanel(): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,16 +16,9 @@ function ImagePanel(): JSX.Element {
     }
     const store = getStore();
     const info: ImageInfo = await uploadImage(file);
-    const id: number = generateId();
     const card: Card = store.getState().card;
-    const image: MyImage = {
-      id: id,
-      type: Types.Image,
-      data: info.data,
-      position: center(card.size, { width: info.width, height: info.height }),
-      size: shrink({ width: info.width, height: info.height })
-    }
-    store.dispatch(pushObject(image));
+    const position: Point = centerImage(card.size, { width: info.width, height: info.height });
+    store.dispatch(createImageObject(info.data, position, { width: info.width, height: info.height }));
   }
 
   return <div className={ styles.image_panel }>

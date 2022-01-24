@@ -1,12 +1,38 @@
-import CardObject from "../../Types/type-card-object"
+import Figures from "../../Components/CardElements/ArtObject/figures"
 import Point from "../../Types/type-point"
 import Size from "../../Types/type-size"
 import ObjectAction from "../Actions/ObjectActions"
 
-export function pushObject(object: CardObject): ObjectAction {
+export function createArtObject(figure: Figures, position: Point): ObjectAction {
   return {
-    type: "PUSH_OBJECT",
-    object: object
+    type: "CREATE_ART_OBJECT",
+    figure: figure,
+    position: position
+  }
+}
+
+export function createImageObject(data: string, position: Point, size: Size): ObjectAction {
+  return {
+    type: "CREATE_IMAGE_OBJECT",
+    data: data,
+    position: position,
+    size: size
+  }
+}
+
+export function createTextObject(
+  fontFamily: string, fontSize: number, color: string, 
+  bold: boolean, italic: boolean, underline: boolean, position: Point
+): ObjectAction {
+  return {
+    type: "CREATE_TEXT_OBJECT",
+    fontFamily: fontFamily, 
+    fontSize: fontSize, 
+    color: color, 
+    bold: bold, 
+    italic: italic, 
+    underline: underline, 
+    position: position
   }
 }
 
